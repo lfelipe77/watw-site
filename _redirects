@@ -1,0 +1,6 @@
+# Old Lovable URLs -> new homepage
+/ai-ecosystem      /#robos   301
+/ai-ecosystem/*    /#robos   301
+/methodology/*     /         301
+/project-estimator /         301
+/crm-calculator    /         301

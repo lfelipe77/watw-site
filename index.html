@@ -1,0 +1,1265 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="WATW | Agentes de IA que automatizam processos complexos">
+<meta property="og:description" content="Desenvolvemos agentes de IA para dados, compliance e operação. O profissional revisa e assina.">
+<meta property="og:image" content="https://weautomatetheworld.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://weautomatetheworld.com/og-image.png">
+<title>WATW | Agentes de IA que automatizam processos complexos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Desenvolvemos agentes de IA que automatizam processos complexos: dados, compliance, atendimento e vendas. O profissional revisa e assina.">
+<meta name="google-site-verification" content="qrd0Znqeft1aulnOSEZzSS5QOrckMFt38Y43QiR2zBw">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B1526">
+<link rel="canonical" href="https://weautomatetheworld.com/">
+<link rel="alternate" hreflang="pt-BR" href="https://weautomatetheworld.com/">
+<link rel="alternate" hreflang="en" href="https://weautomatetheworld.com/">
+<meta property="og:url" content="https://weautomatetheworld.com/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one calm hero with a bot that watches the cursor, then a single "live stage" where every service plays as a small working scene. */
+:root{
+  --bg:#F4F6FA; --surface:#FFFFFF; --surface-2:#EDF0F6; --ink:#0B1526; --muted:#566178; --line:#DCE2EC;
+  --accent:#2D4BFF; --accent-ink:#FFFFFF; --accent-soft:#E4E9FF;
+  --live:#0C9A6A; --live-soft:#DCF4EA; --warn:#D9560B; --warn-soft:#FFEADC; --star:#E9A100;
+  --bubble-in:#FFFFFF; --bubble-out:#DCF2E6; --bot-shell:#E3E8F1; --bot-face:#0B1526; --bot-eye:#7CF0C5;
+  --grid:rgba(11,21,38,.055); --spot:rgba(45,75,255,.10);
+  --shadow:0 1px 2px rgba(11,21,38,.05),0 18px 40px -18px rgba(11,21,38,.22);
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070C17; --surface:#0E1626; --surface-2:#142037; --ink:#E9EEF7; --muted:#98A3B8; --line:#22304A;
+  --accent:#7389FF; --accent-ink:#081023; --accent-soft:#1A2452;
+  --live:#3AD49F; --live-soft:#0F3328; --warn:#FF8C4F; --warn-soft:#3A1F10; --star:#FFC233;
+  --bubble-in:#18233A; --bubble-out:#103A2C; --bot-shell:#1C2840; --bot-face:#03060D; --bot-eye:#7CF0C5;
+  --grid:rgba(233,238,247,.05); --spot:rgba(115,137,255,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -18px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#070C17; --surface:#0E1626; --surface-2:#142037; --ink:#E9EEF7; --muted:#98A3B8; --line:#22304A;
+  --accent:#7389FF; --accent-ink:#081023; --accent-soft:#1A2452;
+  --live:#3AD49F; --live-soft:#0F3328; --warn:#FF8C4F; --warn-soft:#3A1F10; --star:#FFC233;
+  --bubble-in:#18233A; --bubble-out:#103A2C; --bot-shell:#1C2840; --bot-face:#03060D; --bot-eye:#7CF0C5;
+  --grid:rgba(233,238,247,.05); --spot:rgba(115,137,255,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -18px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.top.scrolled{border-bottom-color:var(--line)}
+.bar{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 17px/1 var(--f-display);letter-spacing:-.01em;white-space:nowrap}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:none}
+.logo-mark i{width:5px;height:8px;border-radius:3px;background:var(--bot-eye);display:inline-block;margin:0 2px}
+.nav{display:flex;gap:22px;margin-left:auto;font-size:14px;color:var(--muted)}
+.nav a{text-decoration:none}.nav a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;padding:4px 10px;border-radius:999px;font:500 12px/1 var(--f-mono);cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-wa{background:var(--live);color:#fff}
+.btn-wa:hover{box-shadow:0 10px 24px -10px var(--live)}
+.btn-ghost{border-color:var(--line);background:var(--surface)}
+.btn-sm{padding:9px 16px;font-size:14px}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;--mx:70%;--my:40%}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 80% 70% at 60% 40%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 60% 40%,#000 30%,transparent 80%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx) var(--my),var(--spot),transparent 70%);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:72px 64px}
+.offer{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:500;box-shadow:var(--shadow)}
+.offer b{background:var(--live-soft);color:var(--live);font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:999px}
+.hero h1{font-size:clamp(44px,6.4vw,84px);font-weight:800;margin-top:24px}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative;white-space:nowrap}
+.hero .lede{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:33em;margin-top:22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:28px;font-size:13px;color:var(--muted)}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--live)}
+
+/* hero visual */
+.hq{position:relative;display:grid;justify-items:center;min-width:0}
+.bot-wrap{position:relative;width:min(300px,70%);cursor:pointer;z-index:2}
+.bot{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 30px rgba(11,21,38,.18));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.bot-wrap:hover .bot{transform:translateY(-6px) rotate(-2deg)}
+.bot .shell{fill:var(--bot-shell)}
+.bot .face{fill:var(--bot-face)}
+.bot .eye-o{fill:var(--bot-eye);transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.bot .eye-h{fill:none;stroke:var(--bot-eye);stroke-width:6;stroke-linecap:round;opacity:0}
+.bot .mouth{fill:none;stroke:var(--bot-eye);stroke-width:5;stroke-linecap:round;transition:d .3s}
+.bot .ant{fill:var(--live);animation:pulse 1.6s infinite}
+.bot .stroke{stroke:var(--bot-shell);stroke-width:6;stroke-linecap:round}
+.bot .cheek{fill:var(--accent);opacity:0;transition:opacity .3s}
+.bot-wrap.happy .eye-o{opacity:0}
+.bot-wrap.happy .eye-h{opacity:1}
+.bot-wrap.happy .cheek{opacity:.5}
+.bot-wrap .say{position:absolute;left:62%;top:-4%;background:var(--ink);color:var(--bg);font:500 13px/1.3 var(--f-body);padding:9px 13px;border-radius:14px 14px 14px 4px;white-space:nowrap;opacity:0;transform:translateY(6px) scale(.96);transition:.25s;pointer-events:none}
+.bot-wrap.happy .say{opacity:1;transform:none}
+@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+@keyframes pulse{50%{opacity:.35}}
+
+.feed{position:relative;z-index:3;width:100%;max-width:420px;margin-top:-28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px}
+.feed-head{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 10px}
+.live{display:inline-flex;align-items:center;gap:7px;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--live)}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 var(--live);animation:ring 1.8s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 60%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+.feed ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;min-height:252px}
+.feed li{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:12px;background:var(--surface-2);animation:slidein .5s cubic-bezier(.2,.8,.2,1)}
+.feed li .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--surface);color:var(--accent)}
+.feed li .ic svg{width:17px;height:17px}
+.feed li b{display:block;font-size:13px;font-weight:600}
+.feed li span{display:block;font-size:13px;color:var(--muted);line-height:1.35}
+.feed li time{font:500 11px/1 var(--f-mono);color:var(--muted)}
+@keyframes slidein{from{opacity:0;transform:translateY(-10px) scale(.98)}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);background:var(--surface);overflow:hidden}
+.marquee-track{display:flex;gap:40px;width:max-content;padding-block:16px;animation:marq 40s linear infinite;font:600 15px/1 var(--f-display);color:var(--muted)}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{display:inline-flex;align-items:center;gap:40px;white-space:nowrap}
+.marquee-track span::after{content:"";width:6px;height:6px;border-radius:2px;background:var(--accent);opacity:.5}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding-block:96px}
+.sec-head{max-width:720px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(34px,4.4vw,56px);font-weight:800;margin-top:14px}
+.sec-head p{color:var(--muted);font-size:18px;margin-top:16px}
+
+/* studio: service list + stage */
+.studio{display:grid;grid-template-columns:330px 1fr;gap:28px;align-items:start}
+.menu{display:grid;gap:22px;min-width:0}
+.group h3{font:500 11px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 8px 12px}
+.group ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.svc{width:100%;display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;border:1px solid transparent;background:none;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+.svc .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);transition:.2s}
+.svc .ic svg{width:17px;height:17px}
+.svc b{font-weight:600;font-size:15px;line-height:1.25;display:block}
+.svc small{display:block;font-size:12.5px;color:var(--muted);line-height:1.3}
+.svc .dot{width:7px;height:7px;border-radius:50%;background:var(--live);opacity:0;transition:.2s}
+.svc:hover{background:var(--surface)}
+.svc[aria-selected="true"]{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.svc[aria-selected="true"] .ic{background:var(--accent);color:var(--accent-ink)}
+.svc[aria-selected="true"] .dot{opacity:1;animation:pulse 1.2s infinite}
+
+.stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;min-width:0;--sx:50%;--sy:0%}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(500px circle at var(--sx) var(--sy),var(--spot),transparent 60%);pointer-events:none;opacity:0;transition:opacity .3s}
+.stage:hover::before{opacity:1}
+.stage-head{position:relative;display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.avatar{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:800 15px/1 var(--f-display);color:#fff;flex:none}
+.stage-head b{display:block;font-size:15px;line-height:1.2}
+.stage-head small{display:block;font-size:12.5px;color:var(--muted)}
+.stage-head .live{margin-left:auto}
+.scene{position:relative;height:420px;padding:22px;overflow:hidden}
+.stage-foot{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 20px;border-top:1px solid var(--line);background:var(--surface-2)}
+.stage-foot p{flex:1 1 300px;font-size:14.5px;color:var(--muted);min-width:0}
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--f-mono);padding:8px 11px;border-radius:999px;background:var(--live-soft);color:var(--live);white-space:nowrap}
+.replay{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-size:12.5px;cursor:pointer;color:var(--muted)}
+.replay:hover{color:var(--ink)}
+
+
+/* line tabs: outreach vs data */
+.ltabs{display:inline-grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;border:1px solid var(--line);border-radius:18px;background:var(--surface-2);margin:-12px 0 32px;max-width:100%}
+.ltab{display:flex;align-items:center;gap:12px;border:1px solid transparent;background:none;padding:12px 18px 12px 12px;border-radius:13px;text-align:left;cursor:pointer;color:var(--ink);transition:background .2s,box-shadow .2s;min-width:0}
+.ltab .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--surface);color:var(--muted);flex:none;transition:.2s}
+.ltab .ic svg{width:18px;height:18px}
+.ltab b{display:block;font-size:15.5px;font-weight:700;line-height:1.2}
+.ltab small{display:block;font-size:12.5px;color:var(--muted);line-height:1.3;margin-top:2px}
+.ltab:hover{background:var(--surface)}
+.ltab[aria-selected="true"]{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.ltab[aria-selected="true"] .ic{background:var(--accent);color:var(--accent-ink)}
+.ltab .new{font:600 10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);padding:4px 6px;border-radius:6px;margin-left:6px;vertical-align:2px}
+
+/* data scenes */
+.ledger{max-width:560px;margin:0 auto;display:grid;gap:8px}
+.src-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.src-row span{font:500 11px/1 var(--f-mono);padding:6px 9px;border-radius:8px;background:var(--surface-2);color:var(--muted)}
+.lrow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:14px}
+.lrow small{display:block;color:var(--muted);font-size:12px}
+.lrow b.mono{font-size:14px}
+.ledger.tight{gap:6px}.ledger.tight .lrow{padding:8px 14px}.ledger.tight .data-foot{margin-top:8px}
+.lrow.tot{background:var(--accent-soft);border-color:transparent}
+.lrow.tot b.mono{font-size:18px;color:var(--accent)}
+.lrow.warn{background:var(--warn-soft);border-color:transparent}
+.lrow.warn b.mono{color:var(--warn)}
+.cmp{max-width:560px;margin:0 auto;display:grid;gap:14px}
+.cmp h4{margin:0;font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hbar{display:grid;grid-template-columns:120px 1fr 92px;gap:12px;align-items:center;font-size:13.5px}
+.hbar .tr{height:14px;border-radius:7px;background:var(--surface-2);overflow:hidden}
+.hbar .tr i{display:block;height:100%;width:var(--w);border-radius:7px;background:var(--c,var(--accent));transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.scene.anim .hbar:not(.on) .tr i{width:0}
+.hbar b{text-align:right;font-family:var(--f-mono);font-size:13px}
+.alerts{max-width:560px;margin:0 auto;display:grid;gap:10px}
+.alert{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.dtag{font:600 10.5px/1 var(--f-mono);padding:6px 8px;border-radius:7px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.dtag.hi{background:var(--warn-soft);color:var(--warn)}
+.dtag.ok2{background:var(--live-soft);color:var(--live)}
+.alert b{display:block;font-size:14px;line-height:1.3}
+.alert small{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.35}
+.alert .pct{font:700 15px/1 var(--f-mono);color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:560px;margin:0 auto}
+.kpi{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.kpi small{display:block;font:500 11px/1.2 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.kpi b{display:block;font:800 28px/1.1 var(--f-display);margin-top:8px}
+.kpi em{font-style:normal;font:500 12px/1 var(--f-mono);color:var(--live)}
+.kpi em.dn{color:var(--warn)}
+.spark{grid-column:1/-1;height:90px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.spark svg{width:100%;height:100%}
+.spark path{stroke-dasharray:600;stroke-dashoffset:0;transition:stroke-dashoffset 1.6s ease}
+.scene.anim .spark:not(.on) path{stroke-dashoffset:600}
+.data-foot{display:flex;justify-content:center;margin-top:14px}
+
+/* reveal engine */
+.scene [data-d]{transition:opacity .4s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.scene.anim [data-d]:not(.on){opacity:0;transform:translateY(10px)}
+.scene:not(.anim) [data-x]{display:none}
+.scene.anim .off{display:none}
+.typing{display:none;align-self:flex-end;gap:4px;padding:12px 14px;border-radius:16px;background:var(--bubble-out)}
+.typing.show{display:inline-flex}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--live);animation:tdot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{30%{transform:translateY(-4px);opacity:.5}}
+.ok{display:inline-flex;align-items:center;gap:8px;align-self:center;padding:9px 14px;border-radius:999px;background:var(--live);color:#fff;font:500 12.5px/1 var(--f-mono)}
+.ok::before{content:"";width:12px;height:7px;border:solid #fff;border-width:0 0 2px 2px;transform:rotate(-45deg) translate(1px,-2px)}
+.mono{font-family:var(--f-mono)}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:9px;height:100%;justify-content:flex-end;max-width:520px;margin:0 auto}
+.day{align-self:center;font:500 11px/1 var(--f-mono);color:var(--muted);background:var(--surface-2);padding:6px 10px;border-radius:8px}
+.msg{max-width:78%;padding:10px 13px 8px;border-radius:16px;font-size:14.5px;line-height:1.4;box-shadow:0 1px 1px rgba(11,21,38,.06)}
+.msg i{display:block;text-align:right;font:500 10.5px/1 var(--f-mono);font-style:normal;color:var(--muted);margin-top:4px}
+.msg.in{align-self:flex-start;background:var(--bubble-in);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.out{align-self:flex-end;background:var(--bubble-out);border-bottom-right-radius:4px}
+.msg.out i::after{content:" ✓✓";color:var(--accent)}
+
+/* voice */
+.call{display:grid;grid-template-columns:200px 1fr;gap:22px;height:100%}
+.call-card{background:var(--ink);color:var(--bg);border-radius:20px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.call-card .ring{width:64px;height:64px;border-radius:50%;background:var(--live);display:grid;place-items:center;animation:ring 1.8s infinite}
+.call-card .ring svg{width:28px;height:28px;color:#fff}
+.call-card b{font:600 15px/1.2 var(--f-body)}
+.call-card small{font:500 12px/1 var(--f-mono);opacity:.7}
+.wave{display:flex;align-items:center;gap:3px;height:36px}
+.wave i{width:4px;border-radius:2px;background:var(--bot-eye);height:30%;animation:wv 1s ease-in-out infinite}
+@keyframes wv{50%{height:100%}}
+.transcript{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.transcript p{font-size:14.5px;line-height:1.45;padding:10px 14px;border-radius:14px;background:var(--surface-2)}
+.transcript p.bot{background:var(--accent-soft)}
+.transcript p b{display:block;font:500 11px/1.4 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.transcript .ok{align-self:flex-start}
+
+/* kanban */
+.kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;height:calc(100% - 50px)}
+.col{background:var(--surface-2);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h4{margin:0 0 4px;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:13px;line-height:1.35;min-width:0}
+.card b{display:block;font-size:13px}
+.card small{color:var(--muted);font-size:12px}
+.card.hot{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.card.won{border-color:var(--live);box-shadow:0 0 0 3px var(--live-soft)}
+.toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;white-space:nowrap;box-shadow:var(--shadow)}
+.scene.anim .toast:not(.on){transform:translate(-50%,10px)}
+
+/* leads */
+.leads{display:grid;grid-template-columns:1fr 1.1fr;gap:16px;height:100%}
+.query{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;font:500 13px/1.3 var(--f-mono);color:var(--muted);background:var(--surface-2)}
+.query b{color:var(--ink);font-weight:500}
+.map{position:relative;border-radius:16px;background:
+  linear-gradient(115deg,transparent 46%,color-mix(in srgb,var(--line) 90%,transparent) 46% 50%,transparent 50%),
+  linear-gradient(20deg,transparent 60%,color-mix(in srgb,var(--line) 90%,transparent) 60% 63%,transparent 63%),
+  linear-gradient(var(--grid) 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/22px 22px,var(--surface-2);min-height:200px;overflow:hidden}
+.pin{position:absolute;width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);box-shadow:0 4px 10px -2px var(--accent)}
+.pin::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--surface)}
+.scene.anim .pin:not(.on){transform:rotate(-45deg) translateY(-14px) scale(.6)}
+.rows{display:flex;flex-direction:column;gap:7px;min-width:0}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;font-size:13px;background:var(--surface)}
+.row b{font-size:13.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row small{color:var(--muted);font-size:12px;grid-column:1}
+.row .st{grid-row:1/3;grid-column:2;align-self:center;font:500 11px/1 var(--f-mono);color:var(--warn);background:var(--warn-soft);padding:6px 8px;border-radius:999px}
+.found{margin-top:auto;font:600 15px/1.2 var(--f-display);display:flex;align-items:baseline;gap:8px}
+.found .big{font-size:34px;color:var(--accent)}
+
+/* sequences */
+.seq{display:grid;grid-template-columns:1fr;gap:12px;max-width:560px;margin:0 auto;position:relative;padding-left:30px}
+.seq::before{content:"";position:absolute;left:9px;top:8px;bottom:60px;width:2px;background:var(--line)}
+.step{position:relative;padding:11px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font-size:14px;line-height:1.4}
+.step::before{content:"";position:absolute;left:-27px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.step .meta{display:flex;justify-content:space-between;gap:10px;font:500 11px/1.4 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.step .meta em{font-style:normal;color:var(--live)}
+.step.reply{background:var(--bubble-in);border-color:var(--live)}
+.step.reply::before{border-color:var(--live);background:var(--live)}
+.seq .ok{justify-self:start}
+
+/* prices */
+.prices{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;height:100%}
+.chartbox{border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;min-width:0}
+.chartbox .t{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.chartbox .t b{color:var(--ink);font-size:14px}
+.chartbox svg{width:100%;height:auto;margin-top:auto;overflow:visible}
+.draw{stroke-dasharray:420;stroke-dashoffset:0;transition:stroke-dashoffset 1.4s ease!important}
+.scene.anim .draw:not(.on){stroke-dashoffset:420;opacity:1!important;transform:none!important}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:3px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.alerts{display:flex;flex-direction:column;gap:10px;min-width:0}
+.alert{padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.4;border:1px solid var(--line);background:var(--surface)}
+.alert b{display:block;font:500 11px/1.4 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px}
+.alert.warn{background:var(--warn-soft);border-color:transparent}.alert.warn b{color:var(--warn)}
+.alert.tip{background:var(--accent-soft);border-color:transparent}.alert.tip b{color:var(--accent)}
+.price-tbl{display:grid;gap:6px;font-size:13.5px}
+.price-tbl div{display:flex;justify-content:space-between;padding:8px 12px;border-radius:10px;background:var(--surface-2)}
+.price-tbl s{color:var(--muted)}
+
+/* website builder */
+.browser{height:100%;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;background:var(--surface);max-width:620px;margin:0 auto}
+.b-bar{display:flex;align-items:center;gap:7px;padding:10px 12px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.b-bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.b-url{margin-left:8px;flex:1;background:var(--surface);border-radius:8px;padding:5px 10px;font:500 12px/1 var(--f-mono);color:var(--muted);min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.b-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;background:#FFF8EE;color:#3B2411;overflow:hidden}
+.b-nav{display:flex;justify-content:space-between;align-items:center;font:800 15px/1 var(--f-display)}
+.b-nav span{display:flex;gap:12px;font:500 12px/1 var(--f-body);opacity:.7}
+.b-hero{border-radius:12px;padding:18px;background:linear-gradient(120deg,#F6B04A,#E9762B);color:#fff}
+.b-hero b{display:block;font:800 22px/1.1 var(--f-display)}
+.b-hero small{opacity:.9;font-size:13px}
+.b-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.b-cards div{border-radius:10px;background:#fff;border:1px solid #F0DFC8;padding:8px;font-size:12px;font-weight:600}
+.b-cards div::before{content:"";display:block;height:38px;border-radius:7px;margin-bottom:6px;background:var(--c)}
+.b-cta{display:flex;gap:8px;align-items:center;justify-content:space-between;font-size:12.5px}
+.b-cta span{background:#1F9D63;color:#fff;border-radius:999px;padding:7px 12px;font-weight:600}
+.scene .publish{position:absolute;right:22px;top:22px}
+
+/* reviews */
+.reviews{display:grid;grid-template-columns:200px 1fr;gap:18px;height:100%}
+.score{border-radius:18px;background:var(--surface-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px}
+.score .big{font:800 58px/1 var(--f-display)}
+.stars{display:flex;gap:3px;color:var(--star)}
+.stars svg{width:18px;height:18px;fill:currentColor}
+.score small{color:var(--muted);font-size:13px}
+.rv{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.rcard{border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.45;background:var(--surface)}
+.rcard .who{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:4px}
+.rcard.owner{margin-left:28px;background:var(--accent-soft);border-color:transparent}
+.rcard.owner .who{color:var(--accent);font:500 11px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.05em}
+
+/* social */
+.social{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;height:calc(100% - 46px)}
+.post{border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;min-width:0;overflow:hidden;position:relative}
+.post b{font:700 14px/1.15 var(--f-display)}
+.post small{font:500 10.5px/1 var(--f-mono);opacity:.85}
+.social-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px}
+.social-top b{font:700 16px/1 var(--f-display)}
+
+/* video */
+.video{display:grid;grid-template-columns:220px 1fr;gap:22px;height:100%}
+.phone{border-radius:24px;background:#120A06;position:relative;overflow:hidden;border:5px solid var(--ink)}
+.phone svg.pz{position:absolute;inset:0;width:100%;height:100%}
+.cap{position:absolute;left:10px;right:10px;bottom:46px;text-align:center;font:800 17px/1.15 var(--f-display);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.cap em{font-style:normal;color:#FFD166}
+.prog{position:absolute;left:12px;right:12px;bottom:18px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}
+.prog i{display:block;height:100%;width:100%;background:#fff;transform-origin:left}
+.scene.anim .prog i{animation:prog 5.6s linear forwards}
+@keyframes prog{from{transform:scaleX(0)}}
+.script{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.script .line{padding:10px 14px;border-radius:12px;background:var(--surface-2);font-size:14px;line-height:1.4}
+.script .line b{display:block;font:500 11px/1.4 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.vo{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--muted)}
+.vo .wave{height:26px}.vo .wave i{background:var(--accent)}
+
+/* photos */
+.photos{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;height:100%}
+.photo{position:relative;border-radius:18px;overflow:hidden;--cut:46%;cursor:ew-resize;min-height:220px}
+.photo .layer{position:absolute;inset:0;display:grid;place-items:center}
+.photo .before{background:repeating-linear-gradient(35deg,#B9B2A6 0 14px,#AFA89B 14px 28px)}
+.photo .before svg{transform:rotate(-8deg) scale(.82);filter:saturate(.5) brightness(.85)}
+.photo .after{background:radial-gradient(circle at 50% 35%,#FFE8EF,#F4B9C9 60%,#E58FA9);clip-path:inset(0 0 0 var(--cut));transition:clip-path 1.2s cubic-bezier(.6,0,.2,1)}
+.photo .after::after{content:"";position:absolute;left:25%;right:25%;bottom:12%;height:16px;border-radius:50%;background:rgba(90,20,40,.25);filter:blur(6px)}
+.scene.anim .photo .after:not(.on){clip-path:inset(0 0 0 100%);opacity:1;transform:none}
+.photo .handle{position:absolute;top:0;bottom:0;left:var(--cut);width:3px;background:#fff;transform:translateX(-50%);transition:left 1.2s cubic-bezier(.6,0,.2,1);box-shadow:0 0 12px rgba(0,0,0,.3)}
+.photo .handle::after{content:"";position:absolute;top:50%;left:50%;width:30px;height:30px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.scene.anim .photo .handle:not(.on){left:100%;opacity:1;transform:translateX(-50%)}
+.photo.drag .after,.photo.drag .handle{transition:none}
+.tag{position:absolute;top:12px;font:500 11px/1 var(--f-mono);padding:6px 9px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;z-index:2}
+.variants{display:grid;grid-template-rows:repeat(3,1fr);gap:10px;min-width:0}
+.var{border-radius:14px;display:flex;align-items:flex-end;padding:10px;font:500 11.5px/1 var(--f-mono);color:#fff;position:relative;overflow:hidden}
+.var svg{position:absolute;right:10px;bottom:6px;height:80%;width:auto}
+
+/* docs */
+.docs{display:grid;grid-template-columns:1fr 1.5fr;gap:18px;height:100%}
+.src{display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:0}
+.src .lbl{font:500 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.src div.f{padding:9px 12px;border-radius:10px;background:var(--surface-2);font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.src div.f span{color:var(--muted)}
+.paper{position:relative;background:#FFFFFF;color:#1B2230;border-radius:6px;padding:22px 24px;box-shadow:var(--shadow);border:1px solid var(--line);font-size:13px;line-height:1.5;overflow:hidden}
+.paper h5{margin:0 0 4px;font:700 15px/1.2 var(--f-display);text-align:center}
+.paper .sub{text-align:center;color:#6B7280;font-size:11.5px;margin-bottom:14px}
+.paper .fl{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed #D5DAE3}
+.paper .fl span{color:#6B7280;min-width:92px}
+.paper .fl b{font-weight:600;color:#1638D9}
+.paper .lines i{display:block;height:6px;border-radius:3px;background:#E6E9EF;margin-top:8px}
+.stamp{position:absolute;right:18px;bottom:20px;transform:rotate(-10deg);border:3px solid #0C9A6A;color:#0C9A6A;font:800 15px/1 var(--f-display);text-transform:uppercase;padding:8px 12px;border-radius:8px;letter-spacing:.04em;background:rgba(255,255,255,.85)}
+.scene.anim .stamp:not(.on){transform:rotate(-10deg) scale(1.6)}
+
+/* how it works */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0;margin:0}
+.how li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px;position:relative}
+.how ol{display:contents}
+.how .n{font:500 12px/1 var(--f-mono);color:var(--accent);background:var(--accent-soft);padding:7px 10px;border-radius:999px;display:inline-block}
+.how h3{font-size:24px;font-weight:700;margin-top:18px}
+.how p{color:var(--muted);margin-top:10px;font-size:15.5px}
+.how li.pay{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.how li.pay p{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.how li.pay .n{background:var(--live);color:#fff}
+
+/* faq */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font:600 17px/1.35 var(--f-body)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 24px/1 var(--f-body);color:var(--muted);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--muted);margin-top:10px;max-width:60ch}
+
+/* final cta */
+.final{padding-block:24px 96px}
+.final-box{position:relative;overflow:hidden;border-radius:32px;background:var(--ink);color:var(--bg);padding:64px 48px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.final-box::before{content:"";position:absolute;inset:0;background-image:linear-gradient(color-mix(in srgb,var(--bg) 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--bg) 7%,transparent) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(90deg,transparent,#000);-webkit-mask-image:linear-gradient(90deg,transparent,#000)}
+.final-box h2{position:relative;font-size:clamp(34px,4.4vw,54px);font-weight:800}
+.final-box p{position:relative;margin-top:14px;color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:17px}
+.final-act{position:relative;display:grid;gap:12px;justify-items:start}
+.final-act .num{font:500 14px/1 var(--f-mono);color:color-mix(in srgb,var(--bg) 70%,transparent);user-select:all}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:13.5px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+.float-wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--live);color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px -8px var(--live);transition:transform .2s}
+.float-wa:hover{transform:scale(1.06)}
+.float-wa svg{width:28px;height:28px}
+
+/* responsive */
+@media (max-width:1000px){
+  .studio{grid-template-columns:1fr}
+  .menu{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+  .group{display:contents}
+  .group h3{display:none}
+  .group ul{display:contents}
+  .svc{width:auto;flex:none;grid-template-columns:28px auto;padding:7px 12px 7px 7px;border-color:var(--line);background:var(--surface)}
+  .svc .ic{width:28px;height:28px}
+  .svc small,.svc .dot{display:none}
+  .svc b{font-size:13.5px;white-space:nowrap}
+  .stage{position:relative;top:0}
+  .ltabs{display:grid;width:100%}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;padding-block:48px 56px;gap:36px}
+  .nav{display:none}
+  .lang{margin-left:auto}
+  .how{grid-template-columns:1fr}
+  .faq{grid-template-columns:1fr;gap:20px}
+  .final-box{grid-template-columns:1fr;padding:44px 26px}
+  section.block{padding-block:72px}
+}
+@media (max-width:640px){
+  .bar .btn-sm{display:none}
+  .logo span{font-size:15px}
+  .scene{height:auto;min-height:440px;padding:16px}
+  .call,.video,.reviews{grid-template-columns:1fr}
+  .call-card{flex-direction:row;padding:14px;justify-content:flex-start;text-align:left}
+  .call-card .ring{width:44px;height:44px}.call-card .ring svg{width:20px;height:20px}
+  .call-card .wave{margin-left:auto}
+  .leads,.prices,.photos,.docs{grid-template-columns:1fr}
+  .map{min-height:140px}
+  .kanban{grid-template-columns:repeat(2,minmax(0,1fr));height:auto}
+  .social{grid-template-columns:repeat(3,minmax(0,1fr));height:auto}
+  .social .post{aspect-ratio:1}
+  .social .post:nth-child(n+10){display:none}
+  .phone{height:300px}
+  .score{flex-direction:row;justify-content:flex-start;padding:14px}
+  .score .big{font-size:42px}
+  .variants{grid-template-rows:none;grid-template-columns:repeat(3,1fr)}
+  .var{height:90px}
+  .toast{white-space:normal;width:calc(100% - 32px);text-align:center}
+  .scene .publish{position:static;margin-top:12px}
+  .src{display:none}
+  .ltab{padding:10px;gap:8px}.ltab small,.ltab .ic{display:none}.ltab b{font-size:14px}
+  .hbar{grid-template-columns:90px 1fr 78px;gap:8px}
+  .alert{grid-template-columns:1fr auto}.alert .dtag{grid-column:1/-1;justify-self:start}
+  .vids{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+
+<header class="top" id="top">
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="We Automate the World"><span class="logo-mark" aria-hidden="true"><i></i><i></i></span><span data-brand>We Automate the World</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#robos" data-i18n="nav1">Serviços</a>
+      <a href="#como" data-i18n="nav2">Como funciona</a>
+      <a href="#faq" data-i18n="nav3">Dúvidas</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-pt" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn-wa btn-sm" data-wa href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="talk">Falar no WhatsApp</span></a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="offer"><b data-i18n="offerTag">Oferta</b><span data-i18n="offer">Fazemos seu site de graça. Você só paga se amar.</span></span>
+      <h1 data-i18n="h1">Seu negócio no <em>automático</em>.</h1>
+      <p class="lede" data-i18n="lede">Robôs que atendem no WhatsApp, atendem o telefone, respondem avaliações, encontram clientes e criam seu conteúdo. Enquanto você cuida do que importa.</p>
+      <div class="cta-row">
+        <a class="btn btn-wa" data-wa href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta1">Quero meu site grátis</span></a>
+        <a class="btn btn-ghost" href="#robos" data-i18n="cta2">Ver os robôs trabalhando</a>
+      </div>
+      <div class="trust"><span data-i18n="t1">Sem contrato longo</span><span data-i18n="t2">Pronto em poucos dias</span><span data-i18n="t3">Atendimento em português e inglês</span></div>
+    </div>
+    <div class="hq">
+      <div class="bot-wrap" id="bot" tabindex="0" role="img" aria-label="Robô">
+        <svg class="bot" viewBox="0 0 240 230" aria-hidden="true">
+          <line class="stroke" x1="120" y1="40" x2="120" y2="20"/>
+          <circle class="ant" cx="120" cy="15" r="8"/>
+          <rect class="shell" x="16" y="88" width="20" height="44" rx="10"/>
+          <rect class="shell" x="204" y="88" width="20" height="44" rx="10"/>
+          <rect class="shell" x="30" y="38" width="180" height="140" rx="46"/>
+          <rect class="face" x="50" y="58" width="140" height="94" rx="30"/>
+          <g id="eyes">
+            <rect class="eye-o" x="80" y="84" width="22" height="32" rx="11"/>
+            <rect class="eye-o" x="138" y="84" width="22" height="32" rx="11"/>
+            <path class="eye-h" d="M80 104q11-14 22 0"/>
+            <path class="eye-h" d="M138 104q11-14 22 0"/>
+          </g>
+          <circle class="cheek" cx="72" cy="128" r="7"/><circle class="cheek" cx="168" cy="128" r="7"/>
+          <path class="mouth" id="mouth" d="M106 130q14 8 28 0"/>
+          <rect class="shell" x="80" y="184" width="80" height="34" rx="16"/>
+        </svg>
+        <div class="say" data-i18n="botSay">Oi! Posso atender seus clientes?</div>
+      </div>
+      <div class="feed" aria-live="off">
+        <div class="feed-head"><span class="live" data-i18n="liveNow">Robôs trabalhando agora</span><span class="eyebrow mono" data-i18n="examples">exemplos</span></div>
+        <ul id="feed"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marq"></div></div>
+
+<section class="block" id="robos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="sEy">12 robôs, um time que nunca dorme</span>
+      <h2 data-i18n="sH">Passe o mouse em um serviço. Veja o robô trabalhando.</h2>
+      <p data-i18n="sP">Cada serviço abaixo aparece atendendo um negócio de exemplo. No seu, ele fala com os seus clientes, no seu tom.</p>
+    </div>
+    <div class="ltabs" role="tablist" aria-label="Linhas de serviço" id="ltabs">
+      <button class="ltab" type="button" role="tab" data-tab="0" aria-selected="true"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span><span><b data-i18n="tab0">Atendimento e vendas</b><small data-i18n="tab0s">WhatsApp, clientes, site e conteúdo</small></span></button>
+      <button class="ltab" type="button" role="tab" data-tab="1" aria-selected="false"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span><b><span data-i18n="tab1">Dados, processos e compliance</span><span class="new" data-i18n="newTag">novo</span></b><small data-i18n="tab1s">Impostos, governo, regras e investimentos</small></span></button>
+    </div>
+    <div class="studio">
+      <div class="menu" id="menu" role="tablist" aria-label="Serviços"></div>
+      <div class="stage" id="stage">
+        <div class="stage-head">
+          <div class="avatar" id="av">BZ</div>
+          <div><b id="biz">Barbearia do Zé</b><small id="place">São Paulo</small></div>
+          <span class="live" data-i18n="botOn">Robô ativo</span>
+        </div>
+        <div class="scene" id="scene" role="tabpanel" aria-live="polite"></div>
+        <div class="stage-foot">
+          <p id="desc"></p>
+          <span class="chip" id="chip"></span>
+          <button class="replay" type="button" id="replay" data-i18n="replay">Ver de novo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="como" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="hEy">Site grátis, sem risco</span>
+      <h2 data-i18n="hH">Você só paga se amar.</h2>
+      <p data-i18n="hP">A gente faz primeiro. Você vê seu site e seus robôs funcionando antes de pagar qualquer coisa.</p>
+    </div>
+    <ol class="how">
+      <li><span class="n" data-i18n="s1n">Passo 1 · 15 min</span><h3 data-i18n="s1h">Uma conversa no WhatsApp</h3><p data-i18n="s1p">Você conta como funciona seu negócio, seus horários, preços e o que mais toma seu tempo.</p></li>
+      <li><span class="n" data-i18n="s2n">Passo 2 · poucos dias</span><h3 data-i18n="s2h">A gente constrói</h3><p data-i18n="s2p">Montamos seu site e os robôs que fazem sentido para você. Você testa tudo, pede ajustes, a gente ajusta.</p></li>
+      <li class="pay"><span class="n" data-i18n="s3n">Passo 3 · sua decisão</span><h3 data-i18n="s3h">Amou? Aí você paga.</h3><p data-i18n="s3p">Se aprovar, colocamos no ar com seu domínio. Se não amar, você não deve nada.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top:24px">
+  <div class="wrap faq">
+    <div class="sec-head" style="margin:0">
+      <span class="eyebrow" data-i18n="fEy">Dúvidas</span>
+      <h2 data-i18n="fH">Perguntas que todo dono faz.</h2>
+    </div>
+    <div>
+      <details open><summary data-i18n="q1">Preciso entender de tecnologia?</summary><p data-i18n="a1">Não. A gente configura tudo e te entrega funcionando. Você só acompanha os resultados pelo celular.</p></details>
+      <details><summary data-i18n="q2">Quanto custa?</summary><p data-i18n="a2">Depende dos robôs que fazem sentido para o seu negócio. O site começa grátis e você só paga se aprovar. Antes de qualquer cobrança, você recebe o valor por escrito.</p></details>
+      <details><summary data-i18n="q3">Funciona no WhatsApp que eu já uso?</summary><p data-i18n="a3">Sim. Configuramos no WhatsApp Business do seu negócio, e você pode assumir a conversa quando quiser.</p></details>
+      <details><summary data-i18n="q4">E se o robô não souber responder?</summary><p data-i18n="a4">Ele avisa que vai chamar alguém da equipe e te manda a conversa na hora. Nenhum cliente fica sem resposta.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="final-box">
+      <div>
+        <h2 data-i18n="fin">Vamos colocar seu negócio no automático?</h2>
+        <p data-i18n="finP">Mande um oi. Em 15 minutos você sabe exatamente o que dá para automatizar.</p>
+      </div>
+      <div class="final-act">
+        <a class="btn btn-wa" data-wa href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta1">Quero meu site grátis</span></a>
+        <span class="num" id="num"></span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr">2026</span> <span data-brand>We Automate the World</span></span><span id="dom"></span></div></footer>
+
+<a class="float-wa" data-wa href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+
+<script>
+/* ===== Edit these to reuse the template ===== */
+const CONFIG = {
+  brand: 'We Automate the World',
+  whatsapp: '5547996437188',                    // digits only, e.g. '5511999999999'. Empty = WhatsApp opens without a contact.
+  whatsappDisplay: '+55 (47) 99643-7188',
+  domain: 'weautomatetheworld.com',
+  defaultLang: null                   // 'pt', 'en', or null to follow the visitor's browser
+};
+
+const T = {
+pt:{nav1:'Serviços',nav2:'Como funciona',nav3:'Dúvidas',talk:'Falar no WhatsApp',offerTag:'Oferta',offer:'Fazemos seu site de graça. Você só paga se amar.',
+h1:'Seu negócio no <em>automático</em>.',lede:'Robôs que atendem no WhatsApp, atendem o telefone, respondem avaliações, encontram clientes e criam seu conteúdo. Enquanto você cuida do que importa.',
+cta1:'Quero meu site grátis',cta2:'Ver os robôs trabalhando',t1:'Sem contrato longo',t2:'Pronto em poucos dias',t3:'Atendimento em português e inglês',
+botSay:'Oi! Posso atender seus clientes?',liveNow:'Robôs trabalhando agora',examples:'exemplos',
+sEy:'12 robôs, um time que nunca dorme',sH:'Passe o mouse em um serviço. Veja o robô trabalhando.',sP:'Cada serviço abaixo aparece atendendo um negócio de exemplo. No seu, ele fala com os seus clientes, no seu tom.',
+botOn:'Robô ativo',replay:'Ver de novo',
+hEy:'Site grátis, sem risco',hH:'Você só paga se amar.',hP:'A gente faz primeiro. Você vê seu site e seus robôs funcionando antes de pagar qualquer coisa.',
+s1n:'Passo 1 · 15 min',s1h:'Uma conversa no WhatsApp',s1p:'Você conta como funciona seu negócio, seus horários, preços e o que mais toma seu tempo.',
+s2n:'Passo 2 · poucos dias',s2h:'A gente constrói',s2p:'Montamos seu site e os robôs que fazem sentido para você. Você testa tudo, pede ajustes, a gente ajusta.',
+s3n:'Passo 3 · sua decisão',s3h:'Amou? Aí você paga.',s3p:'Se aprovar, colocamos no ar com seu domínio. Se não amar, você não deve nada.',
+fEy:'Dúvidas',fH:'Perguntas que todo dono faz.',
+q1:'Preciso entender de tecnologia?',a1:'Não. A gente configura tudo e te entrega funcionando. Você só acompanha os resultados pelo celular.',
+q2:'Quanto custa?',a2:'Depende dos robôs que fazem sentido para o seu negócio. O site começa grátis e você só paga se aprovar. Antes de qualquer cobrança, você recebe o valor por escrito.',
+q3:'Funciona no WhatsApp que eu já uso?',a3:'Sim. Configuramos no WhatsApp Business do seu negócio, e você pode assumir a conversa quando quiser.',
+q4:'E se o robô não souber responder?',a4:'Ele avisa que vai chamar alguém da equipe e te manda a conversa na hora. Nenhum cliente fica sem resposta.',
+fin:'Vamos colocar seu negócio no automático?',finP:'Mande um oi. Em 15 minutos você sabe exatamente o que dá para automatizar.',
+waText:'Oi! Vi o site da We Automate the World e quero meu site grátis.',groups:['Atender','Vender','Aparecer','Produzir'],now:'agora',min:'min',
+tab0:'Atendimento e vendas',tab0s:'WhatsApp, clientes, site e conteúdo',tab1:'Dados, processos e compliance',tab1s:'Impostos, governo, regras e investimentos',newTag:'novo',
+groups2:['Reforma tributária','Governo, regras e compliance','Dados, investimentos e processos'],
+sEy2:'Robôs de bastidor, cálculos de verdade',sH2:'Os processos pesados, no automático.',sP2:'Impostos, mudanças nas leis, certidões, licitações e números do negócio. Robôs que leem, calculam, conferem e avisam antes do problema chegar. O motor faz o trabalho pesado e o profissional só revisa e assina.',
+vEy:'Veja em vídeo',vH:'A We Automate the World em ação.',vP:'Dois vídeos curtos: a nossa proposta de parceria e os robôs de cálculo e processos trabalhando.',vSoon:'Vídeo em breve',vPlay:'Assistir vídeo'},
+en:{nav1:'Services',nav2:'How it works',nav3:'FAQ',talk:'Chat on WhatsApp',offerTag:'Offer',offer:'We build your website for free. You only pay if you love it.',
+h1:'Your business on <em>autopilot</em>.',lede:'Bots that answer WhatsApp, pick up the phone, reply to reviews, find new customers and make your content. While you focus on what matters.',
+cta1:'Get my free website',cta2:'Watch the bots work',t1:'No long contracts',t2:'Ready in a few days',t3:'Support in English and Portuguese',
+botSay:'Hi! Can I answer your customers?',liveNow:'Bots working right now',examples:'examples',
+sEy:'12 bots, one team that never sleeps',sH:'Hover over a service. Watch the bot work.',sP:'Each service below is shown working for a sample business. In yours, it talks to your customers, in your voice.',
+botOn:'Bot active',replay:'Play again',
+hEy:'Free website, zero risk',hH:'You only pay if you love it.',hP:'We build first. You see your site and your bots working before you pay anything.',
+s1n:'Step 1 · 15 min',s1h:'A quick WhatsApp chat',s1p:'Tell us how your business runs: hours, prices, and what eats most of your time.',
+s2n:'Step 2 · a few days',s2h:'We build it',s2p:'We set up your website and the bots that make sense for you. You test everything, ask for changes, we make them.',
+s3n:'Step 3 · your call',s3h:'Love it? Then you pay.',s3p:'If you approve, we put it live on your domain. If you don’t love it, you owe nothing.',
+fEy:'FAQ',fH:'Questions every owner asks.',
+q1:'Do I need to be good with tech?',a1:'No. We set everything up and hand it over working. You just follow the results on your phone.',
+q2:'How much does it cost?',a2:'It depends on which bots make sense for your business. The website starts free and you only pay if you approve it. You get the price in writing before any charge.',
+q3:'Does it work on the WhatsApp I already use?',a3:'Yes. We set it up on your business’s WhatsApp Business, and you can take over any conversation whenever you want.',
+q4:'What if the bot doesn’t know the answer?',a4:'It tells the customer someone from the team will reply and sends you the conversation right away. No customer goes unanswered.',
+fin:'Ready to put your business on autopilot?',finP:'Say hi. In 15 minutes you’ll know exactly what can be automated.',
+waText:'Hi! I saw the We Automate the World site and I want my free website.',groups:['Answer','Sell','Get seen','Create'],now:'now',min:'min',
+tab0:'Outreach & sales',tab0s:'WhatsApp, customers, website, content',tab1:'Data, processes & compliance',tab1s:'Taxes, government, rules, investments',newTag:'new',
+groups2:['Tax reform (Brazil)','Government, rules & compliance','Data, investments & processes'],
+sEy2:'Back-office bots, real calculations',sH2:'The heavy processes, on autopilot.',sP2:'Taxes, law changes, compliance documents, public tenders and your business numbers. Bots that read, calculate, double-check and warn you before trouble shows up. The engine does the heavy work; the professional only reviews and signs.',
+vEy:'Watch it',vH:'We Automate the World in action.',vP:'Two short videos: our partnership proposal and the calculation and process bots at work.',vSoon:'Video coming soon',vPlay:'Play video'}
+};
+
+let lang = 'pt';
+try { lang = CONFIG.defaultLang || localStorage.getItem('wa-lang') || ((navigator.language||'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en'); } catch(e){ lang = CONFIG.defaultLang || ((navigator.language||'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en'); }
+const L = (pt, en) => lang === 'pt' ? pt : en;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+/* ===== icons ===== */
+const I = {
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+ phone:'<path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/>',
+ board:'<rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/>',
+ target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',
+ send:'<path d="M3 11 21 3l-8 18-2-8z"/>',
+ chart:'<path d="M3 20h18M5 16l4-5 4 3 6-8"/>',
+ web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
+ star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+ grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+ play:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.5v5l4.5-2.5z"/>',
+ camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/>',
+ calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11v6M8 15h2M12 15h2M8 18h2M12 18h2"/>',
+ scale:'<path d="M12 3v18M5 21h14M4 8h16M6 8l-3 6a3 3 0 0 0 6 0zM18 8l-3 6a3 3 0 0 0 6 0z"/>',
+ sync:'<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/>',
+ bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ gov:'<path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/>',
+ trend:'<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+ pie:'<path d="M12 3v9h9A9 9 0 1 1 12 3z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/>',
+ flow:'<rect x="3" y="4" width="6" height="5" rx="1.2"/><rect x="15" y="4" width="6" height="5" rx="1.2"/><rect x="9" y="15" width="6" height="5" rx="1.2"/><path d="M6 9v3h12V9M12 12v3"/>'
+};
+const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>';
+const stars = n => `<span class="stars">${STAR.repeat(n)}</span>`;
+const wave = n => `<div class="wave">${Array.from({length:n},(_,i)=>`<i style="animation-delay:${(i*97%700)/1000}s"></i>`).join('')}</div>`;
+const bottle = (c1,c2) => `<svg viewBox="0 0 100 140" width="120" height="168"><rect x="38" y="6" width="24" height="22" rx="4" fill="#2B2B33"/><rect x="44" y="26" width="12" height="10" fill="#C9A86A"/><rect x="18" y="36" width="64" height="96" rx="18" fill="${c1}"/><rect x="26" y="44" width="14" height="70" rx="7" fill="#fff" opacity=".35"/><rect x="32" y="74" width="36" height="22" rx="3" fill="${c2}"/><text x="50" y="89" font-size="9" text-anchor="middle" fill="#fff" font-family="Georgia">AURORA</text></svg>`;
+
+/* ===== services: each one is a small scene ===== */
+const S1 = [
+{ id:'whatsapp', g:0, ic:'chat', c:'#0C9A6A', ab:'BZ',
+  name:()=>L('Robô de WhatsApp','WhatsApp bot'), biz:()=>L('Barbearia do Zé','Joe’s Barbershop'), place:()=>L('Barbearia · São Paulo','Barbershop · Austin'),
+  desc:()=>L('Responde dúvidas, mostra preços e agenda horários direto na conversa, até de madrugada.','Answers questions, shares prices and books appointments right in the chat, even at 2 a.m.'),
+  chip:()=>L('Responde em segundos, 24h','Replies in seconds, 24/7'),
+  html:()=>`<div class="chat">
+    <span class="day">${L('Hoje','Today')}</span>
+    <div class="msg in" data-d="1">${L('Oi! Tem horário pra corte amanhã à tarde?','Hi! Any slot for a haircut tomorrow afternoon?')}<i>23:41</i></div>
+    <div class="msg out bot" data-d="2">${L('Oi, Rafael! Amanhã tenho 15h, 16h30 e 18h com o Zé. Qual fica melhor?','Hi Ryan! Tomorrow I have 3pm, 4:30pm and 6pm with Joe. Which works best?')}<i>23:41</i></div>
+    <div class="msg in" data-d="3">${L('15h. Quanto fica corte + barba?','3pm. How much for cut + beard?')}<i>23:42</i></div>
+    <div class="msg out bot" data-d="4">${L('Corte + barba sai R$ 65. Agendado: amanhã às 15h. Te lembro 1h antes!','Cut + beard is $45. Booked: tomorrow at 3pm. I’ll remind you an hour before!')}<i>23:42</i></div>
+    <span class="typing"><i></i><i></i><i></i></span>
+    <span class="ok" data-d="5">${L('Na agenda · Qui 15:00','In the calendar · Thu 3:00 PM')}</span>
+  </div>`},
+{ id:'voice', g:0, ic:'phone', c:'#2D4BFF', ab:'SL',
+  name:()=>L('Recepcionista de voz com IA','AI voice receptionist'), biz:()=>L('Clínica Sorriso Leve','Bright Smile Dental'), place:()=>L('Odontologia · Belo Horizonte','Dental clinic · Miami'),
+  desc:()=>L('Atende o telefone com voz natural, tira dúvidas e marca consultas quando ninguém pode atender.','Picks up the phone with a natural voice, answers questions and books visits when nobody can.'),
+  chip:()=>L('Nenhuma ligação perdida','No missed calls'),
+  html:()=>`<div class="call">
+    <div class="call-card"><span class="ring">${svg('phone')}</span><div><b>${L('Ligação atendida','Call answered')}</b><br><small>22:14 · ${L('fora do horário','after hours')}</small></div>${wave(14)}</div>
+    <div class="transcript">
+      <p data-d="1"><b>${L('Paciente','Caller')}</b>${L('Oi, vocês atendem sábado?','Hi, are you open on Saturdays?')}</p>
+      <p class="bot" data-d="2"><b>${L('Recepcionista IA','AI receptionist')}</b>${L('Atendemos sim, das 8h às 13h. Quer que eu marque uma avaliação?','Yes, from 8am to 1pm. Would you like me to book a check-up?')}</p>
+      <p data-d="3"><b>${L('Paciente','Caller')}</b>${L('Quero. Sábado às 10h dá?','Sure. Does Saturday at 10 work?')}</p>
+      <p class="bot" data-d="4"><b>${L('Recepcionista IA','AI receptionist')}</b>${L('Pronto! Sábado, 10h, com a Dra. Helena. Mandei a confirmação no seu WhatsApp.','Done! Saturday, 10am, with Dr. Helen. I texted you the confirmation.')}</p>
+      <span class="ok" data-d="5">${L('Consulta marcada · Sáb 10:00','Visit booked · Sat 10:00 AM')}</span>
+    </div></div>`},
+{ id:'crm', g:0, ic:'board', c:'#7A3FF2', ab:'SF',
+  name:()=>L('Mini-CRM sob medida','Custom mini-CRM'), biz:()=>L('Studio Fit Academia','Studio Fit Gym'), place:()=>L('Academia · Curitiba','Gym · Denver'),
+  desc:()=>L('Cada contato entra num quadro simples e anda sozinho de etapa, do primeiro oi até virar aluno.','Every lead lands on a simple board and moves itself along, from first hello to paying member.'),
+  chip:()=>L('Nenhum contato esquecido','No lead forgotten'),
+  html:()=>`<div class="kanban">
+    <div class="col"><h4>${L('Novo','New')}<span>3</span></h4>
+      <div class="card" data-x="2"><b>Ana Paula</b><small>${L('Plano anual','Annual plan')}</small></div>
+      <div class="card hot" data-d="1"><b>Carla M.</b><small>${L('Veio do Instagram','From Instagram')}</small></div>
+      <div class="card"><b>Pedro H.</b><small>${L('Aula experimental','Trial class')}</small></div></div>
+    <div class="col"><h4>${L('Conversando','Talking')}<span>2</span></h4>
+      <div class="card" data-x="3"><b>Bruno S.</b><small>${L('Pediu valores','Asked for prices')}</small></div>
+      <div class="card" data-d="2" data-x="4"><b>Ana Paula</b><small>${L('Respondeu o robô','Replied to the bot')}</small></div>
+      <div class="card"><b>Lívia R.</b><small>${L('Horário da noite','Evening classes')}</small></div></div>
+    <div class="col"><h4>${L('Agendado','Booked')}<span>2</span></h4>
+      <div class="card hot" data-d="4"><b>Ana Paula</b><small>${L('Visita seg 7h','Visit Mon 7am')}</small></div>
+      <div class="card"><b>Rita C.</b><small>${L('Aula qua 18h','Class Wed 6pm')}</small></div></div>
+    <div class="col"><h4>${L('Aluno','Member')}<span>12</span></h4>
+      <div class="card won" data-d="3"><b>Bruno S.</b><small>${L('Plano mensal','Monthly plan')}</small></div>
+      <div class="card"><b>Diego F.</b><small>${L('Plano anual','Annual plan')}</small></div></div>
+  </div>
+  <div class="toast" data-d="5">${L('Bruno virou aluno · R$ 129/mês','Bruno became a member · $59/mo')}</div>`},
+{ id:'leads', g:1, ic:'target', c:'#0E7490', ab:'CP',
+  name:()=>L('Caçador de clientes','Lead finder'), biz:()=>L('Contabilidade Prisma','Prism Accounting'), place:()=>L('Contabilidade · Campinas','Accounting firm · Tampa'),
+  desc:()=>L('Varre o Google Maps e monta a lista de empresas certas para você prospectar, com telefone e nota.','Scans Google Maps and builds a list of the right businesses to contact, with phone and rating.'),
+  chip:()=>L('Lista nova toda segunda','Fresh list every Monday'),
+  html:()=>`<div class="leads">
+    <div class="query">${svg('target').replace('<svg','<svg width="16" height="16"')}<span>${L('Buscando','Searching')}: <b>${L('empresas sem contador online · Campinas','small businesses without online bookkeeping · Tampa')}</b></span></div>
+    <div class="map">
+      <span class="pin" data-d="1" style="left:22%;top:30%"></span><span class="pin" data-d="2" style="left:58%;top:22%"></span>
+      <span class="pin" data-d="3" style="left:40%;top:58%"></span><span class="pin" data-d="4" style="left:75%;top:62%"></span><span class="pin" data-d="5" style="left:14%;top:70%"></span>
+    </div>
+    <div class="rows">
+      <div class="row" data-d="1"><b>${L('Ótica Visão Clara','Clear View Optics')}</b><small>★ 4.7 · (19) 3•••-1820</small><span class="st">${L('sem site','no website')}</span></div>
+      <div class="row" data-d="2"><b>${L('Doceria Bem Casado','Sweet Bite Bakery')}</b><small>★ 4.9 · (19) 9•••-4410</small><span class="st">${L('sem site','no website')}</span></div>
+      <div class="row" data-d="3"><b>${L('Auto Center Paulista','Bayside Auto Center')}</b><small>★ 4.5 · (19) 3•••-7702</small><span class="st">${L('abriu este mês','opened this month')}</span></div>
+      <div class="row" data-d="4"><b>${L('Studio Pilates Ser','Core Pilates Studio')}</b><small>★ 4.8 · (19) 9•••-2391</small><span class="st">${L('sem site','no website')}</span></div>
+      <div class="found" data-d="6"><span class="big" data-count="38">38</span>${L('empresas novas na lista','new businesses on the list')}</div>
+    </div></div>`},
+{ id:'seq', g:1, ic:'send', c:'#B45309', ab:'IH',
+  name:()=>L('Sequências de venda','Sales follow-ups'), biz:()=>L('Imobiliária Horizonte','Horizon Realty'), place:()=>L('Imobiliária · Florianópolis','Real estate · San Diego'),
+  desc:()=>L('Mensagens e e-mails de acompanhamento saem na hora certa até o cliente responder.','Follow-up messages and emails go out at the right time until the customer replies.'),
+  chip:()=>L('Follow-up no piloto automático','Follow-up on autopilot'),
+  html:()=>`<div class="seq">
+    <div class="step" data-d="1"><div class="meta"><span>${L('Dia 0 · WhatsApp','Day 0 · WhatsApp')}</span><em>${L('entregue','delivered')}</em></div>${L('Oi, Marina! Separei 3 apartamentos de 2 quartos perto da praia, no seu orçamento.','Hi Marina! I picked 3 two-bedroom condos near the beach, within your budget.')}</div>
+    <div class="step" data-d="2"><div class="meta"><span>${L('Dia 2 · E-mail','Day 2 · Email')}</span><em>${L('aberto 2x','opened 2x')}</em></div>${L('Fotos, planta e valor do condomínio do Ap. 52.','Photos, floor plan and HOA fee for Unit 52.')}</div>
+    <div class="step" data-d="3"><div class="meta"><span>${L('Dia 5 · WhatsApp','Day 5 · WhatsApp')}</span><em>${L('lido','read')}</em></div>${L('Ainda faz sentido visitar no sábado? Tenho horário às 11h.','Still up for a visit on Saturday? I have 11am open.')}</div>
+    <div class="step reply" data-d="4"><div class="meta"><span>Marina</span><em>${L('respondeu','replied')}</em></div>${L('Faz sim! Pode ser às 11h.','Yes! 11am works.')}</div>
+    <span class="ok" data-d="5">${L('Visita marcada · Sáb 11:00','Viewing booked · Sat 11:00 AM')}</span>
+  </div>`},
+{ id:'prices', g:1, ic:'chart', c:'#C2410C', ab:'AF',
+  name:()=>L('Monitor de concorrentes','Competitor price watch'), biz:()=>L('Pet Shop Amigo Fiel','Loyal Paws Pet Store'), place:()=>L('Pet shop · Recife','Pet store · Phoenix'),
+  desc:()=>L('Acompanha preços e promoções dos concorrentes e avisa no seu WhatsApp quando algo muda.','Tracks competitor prices and promos and pings your WhatsApp when something changes.'),
+  chip:()=>L('Alerta na hora','Instant alerts'),
+  html:()=>`<div class="prices">
+    <div class="chartbox">
+      <div class="t"><span>${L('Ração Premium 15 kg · 30 dias','Premium dog food 30 lb · 30 days')}</span><b>${L('R$','$')}</b></div>
+      <svg viewBox="0 0 300 150" aria-hidden="true">
+        <g stroke="var(--line)" stroke-width="1"><line x1="0" y1="30" x2="300" y2="30"/><line x1="0" y1="75" x2="300" y2="75"/><line x1="0" y1="120" x2="300" y2="120"/></g>
+        <path d="M0 52 L60 50 L120 52 L180 49 L240 50 L300 50" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+        <path class="draw" data-d="1" d="M0 60 L60 58 L120 61 L180 60 L230 62 L250 104 L300 106" fill="none" stroke="var(--warn)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle data-d="2" cx="250" cy="104" r="6" fill="var(--warn)"/>
+      </svg>
+      <div class="legend"><span><i style="background:var(--accent)"></i>${L('Você','You')}</span><span><i style="background:var(--warn)"></i>${L('Concorrente A','Competitor A')}</span></div>
+    </div>
+    <div class="alerts">
+      <div class="price-tbl" data-d="1"><div><span>${L('Você','You')}</span><b>${L('R$ 209,90','$64.99')}</b></div><div><span>${L('Concorrente A','Competitor A')}</span><span><s>${L('R$ 205,00','$62.99')}</s> <b>${L('R$ 189,90','$56.99')}</b></span></div><div><span>${L('Concorrente B','Competitor B')}</span><b>${L('R$ 214,90','$66.49')}</b></div></div>
+      <div class="alert warn" data-d="3"><b>${L('Alerta · hoje 08:02','Alert · today 8:02 AM')}</b>${L('Concorrente A baixou a ração para R$ 189,90 (−7%).','Competitor A dropped the price to $56.99 (−10%).')}</div>
+      <div class="alert tip" data-d="4"><b>${L('Sugestão','Suggestion')}</b>${L('Combo ração + petisco por R$ 199 mantém sua margem.','A food + treats bundle at $59.99 keeps your margin.')}</div>
+    </div></div>`},
+{ id:'site', g:2, ic:'web', c:'#E9762B', ab:'SN',
+  name:()=>L('Site profissional','Professional website'), biz:()=>L('Padaria Sol Nascente','Sunrise Bakery'), place:()=>L('Padaria · Salvador','Bakery · Portland'),
+  desc:()=>L('Site rápido, bonito e feito para o celular, com botão de WhatsApp e mapa. Grátis para começar: você só paga se amar.','A fast, good-looking, mobile-first site with a WhatsApp button and map. Free to start: you only pay if you love it.'),
+  chip:()=>L('Grátis até você aprovar','Free until you approve'),
+  html:()=>`<div class="browser">
+    <div class="b-bar"><i></i><i></i><i></i><span class="b-url">${L('padariasolnascente.com.br','sunrisebakery.com')}</span></div>
+    <div class="b-body">
+      <div class="b-nav" data-d="1">${L('Sol Nascente','Sunrise')}<span><span>${L('Cardápio','Menu')}</span><span>${L('Encomendas','Orders')}</span><span>${L('Onde estamos','Visit')}</span></span></div>
+      <div class="b-hero" data-d="2"><b>${L('Pão quentinho às 6h.','Warm bread at 6 a.m.')}</b><small>${L('Encomende pelo WhatsApp e retire sem fila.','Order on WhatsApp and skip the line.')}</small></div>
+      <div class="b-cards" data-d="3"><div style="--c:#F2C27B">${L('Pão de queijo','Cheese bread')}</div><div style="--c:#D98B4A">${L('Bolo de fubá','Corn cake')}</div><div style="--c:#B5652E">${L('Sonho','Cream donut')}</div></div>
+      <div class="b-cta" data-d="4"><small>${L('Rua das Flores, 120 · aberto agora','120 Flower St · open now')}</small><span>${L('Pedir no WhatsApp','Order on WhatsApp')}</span></div>
+    </div></div>
+    <span class="ok publish" data-d="5">${L('Site no ar','Site is live')}</span>`},
+{ id:'reviews', g:2, ic:'star', c:'#B91C1C', ab:'BN',
+  name:()=>L('Turbo de avaliações no Google','Google review booster'), biz:()=>L('Cantina Bella Nonna','Bella Nonna Trattoria'), place:()=>L('Restaurante · Porto Alegre','Restaurant · Chicago'),
+  desc:()=>L('Pede avaliação depois de cada visita e responde cada comentário com educação, no seu tom.','Asks for a review after every visit and replies to each one politely, in your voice.'),
+  chip:()=>L('Mais estrelas, mais clientes','More stars, more customers'),
+  html:()=>`<div class="reviews">
+    <div class="score"><span class="big" data-count="4.9" data-from="4.3" data-dec="1">4.9</span><div>${stars(5)}<small><span data-count="212" data-from="148">212</span> ${L('avaliações no Google','Google reviews')}</small></div></div>
+    <div class="rv">
+      <div class="alert tip" data-d="1"><b>${L('Enviado · 21:30','Sent · 9:30 PM')}</b>${L('Pedido de avaliação para 14 clientes do jantar de hoje.','Review request sent to 14 of tonight’s dinner guests.')}</div>
+      <div class="rcard" data-d="2"><div class="who">Paula M. ${stars(5)}</div>${L('Melhor lasanha da cidade, atendimento impecável!','Best lasagna in town, and the service was perfect!')}</div>
+      <div class="rcard owner" data-d="3"><div class="who">${L('Resposta do restaurante','Owner reply')}</div>${L('Obrigado, Paula! A nonna ficou orgulhosa. Volte para provar o tiramisù.','Thank you, Paula! Nonna is very proud. Come back and try the tiramisu.')}</div>
+    </div></div>`},
+{ id:'social', g:2, ic:'grid', c:'#A16207', ab:'GO',
+  name:()=>L('Kit de redes sociais','Social media kit'), biz:()=>L('Café Grão de Ouro','Golden Bean Café'), place:()=>L('Cafeteria · Rio de Janeiro','Coffee shop · Seattle'),
+  desc:()=>L('Posts, legendas e agenda de publicação prontos para o mês inteiro.','Posts, captions and a publishing schedule ready for the whole month.'),
+  chip:()=>L('Um mês de posts em um dia','A month of posts in a day'),
+  html:()=>{const P=[['#7C4A2D',L('Latte da semana','Latte of the week'),L('Seg 9h','Mon 9am')],['#C08A3E',L('Bastidores da torra','Behind the roast'),L('Ter 12h','Tue noon')],['#2F5D50',L('Promo 2 por 1','2-for-1 deal'),L('Qua 8h','Wed 8am')],['#9A3B3B',L('Conheça a Bia','Meet our barista'),L('Qui 18h','Thu 6pm')],['#3D405B',L('Café gelado','Cold brew is back'),L('Sex 10h','Fri 10am')],['#B5651D',L('Bolo do dia','Cake of the day'),L('Sáb 9h','Sat 9am')],['#5C7457',L('Grãos da fazenda','Farm to cup'),L('Dom 11h','Sun 11am')],['#8E5572',L('Enquete: qual sabor?','Poll: pick a flavor'),L('Seg 18h','Mon 6pm')]];
+    return `<div class="social-top"><b>${L('Dezembro','December')}</b><span class="chip">${L('8 de 30 posts','8 of 30 posts')}</span></div><div class="social">${P.map((p,i)=>`<div class="post" data-d="${i+1}" data-w="260" style="background:linear-gradient(160deg,${p[0]},color-mix(in srgb,${p[0]} 60%,#000))"><small>${p[2]}</small><b>${p[1]}</b></div>`).join('')}</div><div class="toast" data-d="9">${L('Mês inteiro agendado','Whole month scheduled')}</div>`}},
+{ id:'video', g:3, ic:'play', c:'#DC2626', ab:'FL',
+  name:()=>L('Vídeos com locução','Promo videos with voiceover'), biz:()=>L('Pizzaria Forno a Lenha','Wood Fire Pizza Co.'), place:()=>L('Pizzaria · São Paulo','Pizzeria · New York'),
+  desc:()=>L('Vídeos curtos editados, com legenda e locução profissional por IA, prontos para Reels e Status.','Short edited videos with captions and a pro AI voiceover, ready for Reels and Stories.'),
+  chip:()=>L('Pronto para Reels','Ready for Reels'),
+  html:()=>`<div class="video">
+    <div class="phone">
+      <svg class="pz" viewBox="0 0 200 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><radialGradient id="fire" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#FF9F43"/><stop offset=".6" stop-color="#7A2E0E"/><stop offset="1" stop-color="#1A0B05"/></radialGradient></defs>
+        <rect width="200" height="360" fill="url(#fire)"/>
+        <g transform="translate(100 170)"><circle r="78" fill="#E8B26A"/><circle r="66" fill="#D2452B"/>
+        <g fill="#F7E3B5"><circle cx="-22" cy="-18" r="13"/><circle cx="24" cy="-8" r="14"/><circle cx="-6" cy="26" r="13"/><circle cx="34" cy="30" r="10"/><circle cx="-38" cy="16" r="9"/></g>
+        <g fill="#3C7A3B"><ellipse cx="-4" cy="-34" rx="7" ry="4"/><ellipse cx="10" cy="10" rx="7" ry="4" transform="rotate(40 10 10)"/><ellipse cx="-30" cy="-4" rx="6" ry="3.5"/></g></g>
+      </svg>
+      <div class="cap" data-x="2">${L('Massa de <em>48 horas</em>','<em>48-hour</em> dough')}</div>
+      <div class="cap" data-d="2" data-x="3">${L('Forno a lenha a <em>450°C</em>','Wood-fired at <em>850°F</em>')}</div>
+      <div class="cap" data-d="3">${L('Peça agora no <em>WhatsApp</em>','Order now on <em>WhatsApp</em>')}</div>
+      <div class="prog"><i></i></div>
+    </div>
+    <div class="script">
+      <div class="vo">${wave(12)}<span>${L('Locução IA · voz masculina, português','AI voiceover · warm male voice, English')}</span></div>
+      <div class="line" data-d="1"><b>0:00</b>${L('“Aqui a massa descansa 48 horas.”','“Here, the dough rests for 48 hours.”')}</div>
+      <div class="line" data-d="2"><b>0:05</b>${L('“E vai pro forno a lenha, a 450 graus.”','“Then into the wood-fired oven at 850 degrees.”')}</div>
+      <div class="line" data-d="3"><b>0:10</b>${L('“Peça a sua pelo WhatsApp. Chega quentinha.”','“Order yours on WhatsApp. It arrives hot.”')}</div>
+      <span class="ok" data-d="4">${L('Vídeo pronto · 0:15','Video ready · 0:15')}</span>
+    </div></div>`},
+{ id:'photos', g:3, ic:'camera', c:'#DB2777', ab:'BA',
+  name:()=>L('Fotos de produto com IA','AI product photos'), biz:()=>L('Boutique Aurora','Aurora Boutique'), place:()=>L('Perfumaria · Fortaleza','Fragrance shop · Los Angeles'),
+  desc:()=>L('Transforma a foto do celular em foto de catálogo, com fundo e luz de estúdio. Arraste a barra para comparar.','Turns a phone snapshot into a catalog shot with studio light and background. Drag the bar to compare.'),
+  chip:()=>L('Estúdio sem estúdio','A studio, minus the studio'),
+  html:()=>`<div class="photos">
+    <div class="photo" id="photo">
+      <div class="layer before">${bottle('#C98FA0','#7B4A57')}</div>
+      <div class="layer after" data-d="1" data-w="1300">${bottle('#E7A1B4','#8E3A55')}</div>
+      <span class="handle" data-d="1"></span>
+      <span class="tag" style="left:12px">${L('Antes · celular','Before · phone')}</span><span class="tag" style="right:12px">${L('Depois · IA','After · AI')}</span>
+    </div>
+    <div class="variants">
+      <div class="var" data-d="2" style="background:linear-gradient(135deg,#EDEAE4,#C9C3B8);color:#3b3226">${bottle('#E7A1B4','#8E3A55')}${L('Mármore','Marble')}</div>
+      <div class="var" data-d="3" style="background:linear-gradient(135deg,#F9D99A,#E8A55A)">${bottle('#E7A1B4','#8E3A55')}${L('Luz natural','Sunlight')}</div>
+      <div class="var" data-d="4" style="background:linear-gradient(135deg,#3B2C5A,#151025)">${bottle('#E7A1B4','#8E3A55')}${L('Noite','Night')}</div>
+    </div></div>`},
+{ id:'docs', g:3, ic:'doc', c:'#1E3A8A', ab:'LA',
+  name:()=>L('Automação de documentos','Document automation'), biz:()=>L('Lima Advocacia','Lima Law Office'), place:()=>L('Escritório · Brasília','Law office · Boston'),
+  desc:()=>L('Preenche contratos, orçamentos e recibos com os dados do cliente e já envia para assinatura.','Fills contracts, quotes and receipts with the client’s details and sends them out for signature.'),
+  chip:()=>L('Contrato em segundos','Contracts in seconds'),
+  html:()=>`<div class="docs">
+    <div class="src"><span class="lbl">${L('Dados do formulário','From the intake form')}</span>
+      <div class="f"><span>${L('Nome','Name')}</span>Marcos Andrade</div><div class="f"><span>${L('Serviço','Service')}</span>${L('Consultoria','Consulting')}</div><div class="f"><span>${L('Valor','Fee')}</span>${L('R$ 3.500','$2,500')}</div><div class="f"><span>${L('Vencimento','Due')}</span>${L('10/12','Dec 10')}</div></div>
+    <div class="paper">
+      <h5>${L('Contrato de Prestação de Serviços','Service Agreement')}</h5><div class="sub">Lima Advocacia · Nº 2026-0418</div>
+      <div class="fl"><span>${L('Contratante','Client')}</span><b data-d="1">Marcos Andrade</b></div>
+      <div class="fl"><span>${L('Objeto','Scope')}</span><b data-d="2">${L('Consultoria jurídica empresarial','Business legal consulting')}</b></div>
+      <div class="fl"><span>${L('Honorários','Fee')}</span><b data-d="3">${L('R$ 3.500,00','$2,500.00')}</b></div>
+      <div class="fl"><span>${L('Vencimento','Due date')}</span><b data-d="4">${L('10/12/2026','December 10, 2026')}</b></div>
+      <div class="lines"><i></i><i style="width:86%"></i><i style="width:70%"></i></div>
+      <div class="stamp" data-d="6">${L('Assinado','Signed')}</div>
+    </div>
+    <span class="toast" data-d="5" data-x="6">${L('Enviado para assinatura digital…','Sent for e-signature…')}</span>
+  </div>`}
+];
+/* ===== tab 2: data, processes & compliance ===== */
+const hbar = (d, label, w, val, c) => `<div class="hbar" data-d="${d}"><span>${label}</span><span class="tr"><i style="--w:${w}%;${c ? '--c:' + c : ''}"></i></span><b>${val}</b></div>`;
+const S2 = [
+{ id:'redutor', g:0, ic:'scale', c:'#7A3FF2', ab:'HF',
+  name:()=>L('Redutor de ajuste 31/12/2026','Property tax-reform “photo” (Brazil)'), biz:()=>L('Holding Família Prado','Prado Family Holding'), place:()=>L('Holding imobiliária · São Paulo','Property holding · São Paulo, Brazil'),
+  desc:()=>L('Lê matrículas, escrituras e ITBI, corrige o custo de cada imóvel pelo IPCA até 31/12/2026 e compara com o valor de referência. O contador escolhe e assina.','Reads deeds, registrations and transfer-tax receipts, inflation-corrects each property’s cost to 12/31/2026 and compares it with the official reference value. The accountant picks and signs.'),
+  chip:()=>L('Um dossiê por imóvel','One dossier per property'),
+  html:()=>`<div class="ledger">
+    <div class="src-row"><span>${L('12 matrículas lidas','12 deeds read')}</span><span>IPCA · ${L('Banco Central','Central Bank')}</span><span>Sinter</span><span>LC 214/2025</span></div>
+    <div class="lrow" data-d="1"><span>${L('Sala comercial · Pinheiros','Office unit · Pinheiros')}<small>${L('Compra 2009 + ITBI + laudêmio','Bought 2009 + transfer tax + fees')}</small></span><b class="mono">${L('R$ 300 mil','R$300k')}</b></div>
+    <div class="lrow" data-d="2"><span>${L('Custo corrigido até 31/12/2026','Cost corrected to 12/31/2026')}<small>${L('Opção 1 · art. 258','Option 1 · art. 258')}</small></span><b class="mono">${L('R$ 761 mil','R$761k')}</b></div>
+    <div class="lrow" data-d="3"><span>${L('Valor de referência','Official reference value')}<small>${L('Opção 2 · simulado','Option 2 · simulated')}</small></span><b class="mono">${L('R$ 1,0 mi','R$1.0M')}</b></div>
+    <div class="lrow tot" data-d="4"><span><b>${L('Base tributável numa venda de R$ 1,2 mi','Taxable base on a R$1.2M sale')}</b><small>${L('Com a melhor opção: de R$ 439 mil para','Best option: from R$439k down to')}</small></span><b class="mono">${L('R$ ','R$')}<span data-count="200">0</span>${L(' mil','k')}</b></div>
+    <div class="data-foot"><span class="ok" data-d="5">${L('Dossiê pronto · contador assina','Dossier ready · accountant signs')}</span></div>
+  </div>`},
+{ id:'irpfm', g:0, ic:'calc', c:'#1E3A8A', ab:'GR',
+  name:()=>L('Dividendos e imposto mínimo','Dividends & minimum tax (Brazil)'), biz:()=>L('Grupo Rocha · 4 empresas','Rocha Group · 4 companies'), place:()=>L('Família empresária · Campinas','Business family · Campinas, Brazil'),
+  desc:()=>L('Todo mês confere a retenção de 10% por sócio e por empresa, controla os lucros antigos isentos e, no ano, monta o IRPFM com o crédito do que as empresas já pagaram.','Every month it checks the 10% withholding per partner and company, tracks tax-free pre-2026 profits and, each year, builds the minimum-tax worksheet with credit for what the companies already paid.'),
+  chip:()=>L('Mensal, contínuo e anual','Monthly, ongoing and yearly'),
+  html:()=>`<div class="cmp">
+    <h4>${L('Dividendos de novembro · por sócio','November dividends · per partner')}</h4>
+    ${hbar(1, 'Ana R.', 80, L('retém 10%','10% withheld'), '#D9560B')}
+    ${hbar(2, 'Bruno R.', 46, L('isento','exempt'), '#0C9A6A')}
+    ${hbar(3, 'Carla R.', 38, L('lucro 2025','2025 profit'), '#2D4BFF')}
+    <div class="lrow warn" data-d="4"><span>${L('Pagamento dividido em 2 datas','Payment split across 2 dates')}<small>${L('Detector de fracionamento: somado no mês','Split-payment check: added up for the month')}</small></span><b class="mono">${L('alerta','flag')}</b></div>
+    <div class="lrow tot" data-d="5"><span><b>${L('DARF da retenção','Withholding payment slip')}</b><small>${L('Vence dia 20 · aviso 15 dias antes','Due the 20th · reminder 15 days ahead')}</small></span><b class="mono">${L('pronto','ready')}</b></div>
+  </div>`},
+{ id:'itcmd', g:0, ic:'pie', c:'#A16207', ab:'FM',
+  name:()=>L('Sucessão e ITCMD: doar agora ou esperar?','Succession & gift tax: give now or wait?'), biz:()=>L('Família Mattos','Mattos Family'), place:()=>L('Planejamento sucessório · São Paulo','Estate planning · São Paulo, Brazil'),
+  desc:()=>L('Avalia as quotas da holding a valor de mercado, calcula o imposto por herdeiro e compara os cenários. Engenheiro assina o laudo, contador o cálculo, advogado a estratégia.','Values the holding’s shares at market value, calculates the tax per heir and compares scenarios. The engineer signs the valuation, the accountant the math, the lawyer the strategy.'),
+  chip:()=>L('Cenários A a D lado a lado','Scenarios A to D side by side'),
+  html:()=>`<div class="cmp">
+    <h4>${L('Quotas da holding · valor contábil x mercado','Holding shares · book vs market value')}</h4>
+    ${hbar(1, L('Contábil','Book'), 25, L('R$ 2 mi','R$2M'), '#566178')}
+    ${hbar(2, L('Mercado','Market'), 100, L('R$ 8 mi','R$8M'), '#A16207')}
+    ${hbar(3, L('ITCMD hoje','Tax at book'), 25, L('R$ 80 mil','R$80k'), '#0C9A6A')}
+    ${hbar(4, L('ITCMD novo','Tax at market'), 100, L('R$ 320 mil','R$320k'), '#D9560B')}
+    <div class="data-foot"><span class="ok" data-d="5">${L('Relatório “Doar agora ou esperar” pronto','“Give now or wait” report ready')}</span></div>
+  </div>`},
+{ id:'aluguel', g:0, ic:'board', c:'#0E7490', ab:'SV',
+  name:()=>L('Aluguéis no IBS/CBS','Rental income under the new tax'), biz:()=>L('Sr. Vieira · 7 imóveis','Mr. Vieira · 7 rentals'), place:()=>L('Pessoa física · Rio de Janeiro','Landlord · Rio de Janeiro, Brazil'),
+  desc:()=>L('Conta imóveis e frações herdadas, decide se a pessoa vira contribuinte, calcula contrato por contrato e planeja CNPJ e notas a partir de 01/01/2027.','Counts properties and inherited fractions, decides whether the owner becomes a taxpayer, calculates lease by lease and plans the company registration and invoicing from 1/1/2027.'),
+  chip:()=>L('Pronto antes de 2027','Ready before 2027'),
+  html:()=>`<div class="ledger">
+    <div class="lrow" data-d="1"><span>${L('Imóveis alugados','Rented properties')}<small>${L('Inclui 1/3 de apto herdado','Includes 1/3 of an inherited flat')}</small></span><b class="mono">7</b></div>
+    <div class="lrow" data-d="2"><span>${L('Receita de aluguel no ano','Yearly rental income')}<small>${L('Acima de R$ 240 mil e de 3 imóveis','Above R$240k and more than 3 properties')}</small></span><b class="mono">${L('vira contribuinte','becomes taxpayer')}</b></div>
+    <div class="lrow" data-d="3"><span>${L('Redutor social nos residenciais','Social reducer on homes')}<small>${L('R$ 600 por mês por contrato','R$600 a month per lease')}</small></span><b class="mono">${L('5 contratos','5 leases')}</b></div>
+    <div class="lrow tot" data-d="4"><span><b>${L('CBS estimada sobre aluguel','Estimated tax on rent')}</b><small>${L('Redução de 70% aplicada','70% rate reduction applied')}</small></span><b class="mono">~<span data-count="3.4" data-dec="1">0</span>%</b></div>
+    <div class="data-foot"><span class="ok" data-d="5">${L('Parecer + plano de CNPJ prontos','Opinion + registration plan ready')}</span></div>
+  </div>`},
+{ id:'regwatch', g:1, ic:'bell', c:'#B45309', ab:'LA',
+  name:()=>L('Monitor de mudanças nas leis','Law & rule change monitor'), biz:()=>L('Lima Advocacia','Lima Law Office'), place:()=>L('Advocacia · Porto Alegre','Law office · Paris, TN'),
+  desc:()=>L('Lê Diário Oficial, Receita, prefeitura e conselhos todo dia, e avisa só o que muda alguma coisa para você e seus clientes.','Reads the Federal Register, IRS, state and city notices every day, and flags only what changes something for you and your clients.'),
+  chip:()=>L('Nenhuma mudança passa batido','No rule change slips by'),
+  html:()=>`<div class="alerts">
+    <div class="src-row"><span>${L('Diário Oficial da União','Federal Register')}</span><span>${L('Receita Federal','IRS')}</span><span>${L('Prefeitura · ISS','State · Dept. of Revenue')}</span><span>${L('lidos hoje: 1.912 atos','read today: 1,912 notices')}</span></div>
+    <div class="alert" data-d="1"><span class="dtag hi">${L('Impacto alto','High impact')}</span><span><b>${L('Nova alíquota de ISS a partir de janeiro','New local tax rate starting January')}</b><small>${L('Afeta 14 clientes de serviços · prazo para ajustar contratos: 30 dias','Affects 14 service clients · 30 days to update contracts')}</small></span><span class="pct">14</span></div>
+    <div class="alert" data-d="2"><span class="dtag">${L('Prazo','Deadline')}</span><span><b>${L('Entrega da DCTFWeb antecipada','Quarterly filing moved earlier')}</b><small>${L('Novo vencimento: dia 15 · agenda de todos atualizada','New due date: the 15th · every calendar updated')}</small></span><span class="pct">8</span></div>
+    <div class="alert" data-d="3"><span class="dtag ok2">${L('Sem impacto','No impact')}</span><span><b>${L('Portaria sobre exportação de serviços','Rule on interstate service exports')}</b><small>${L('Nenhum cliente se enquadra · arquivado','No client affected · filed away')}</small></span><span class="pct">0</span></div>
+    <div class="data-foot"><span class="ok" data-d="4">${L('Resumo do dia enviado no WhatsApp','Daily summary sent to your phone')}</span></div>
+  </div>`},
+{ id:'compliance', g:1, ic:'shield', c:'#0C9A6A', ab:'SF',
+  name:()=>L('Compliance e certidões em dia','Compliance & licenses on track'), biz:()=>L('Studio Fit Academia','Studio Fit Gym'), place:()=>L('Academia · Curitiba','Gym · Lebanon, MO'),
+  desc:()=>L('Acompanha certidões, alvarás, licenças, LGPD e obrigações. Renova o que dá sozinho e avisa com antecedência o resto.','Tracks licenses, permits, insurance, privacy rules and filings. Renews what it can and warns you well ahead about the rest.'),
+  chip:()=>L('Nada vence sem aviso','Nothing expires by surprise'),
+  html:()=>`<div class="ledger">
+    <div class="lrow" data-d="1"><span>${L('CND Federal (Receita + PGFN)','Business license · city')}<small>${L('Renovada automaticamente','Renewed automatically')}</small></span><span class="dtag ok2">OK</span></div>
+    <div class="lrow" data-d="2"><span>${L('Certidão FGTS','Sales tax permit')}<small>${L('Válida até 18/01/2027','Valid until Jan 18, 2027')}</small></span><span class="dtag ok2">OK</span></div>
+    <div class="lrow warn" data-d="3"><span>${L('Alvará do Corpo de Bombeiros','Fire inspection certificate')}<small>${L('Vence em 12 dias · vistoria já pedida','Expires in 12 days · inspection already requested')}</small></span><b class="mono">12d</b></div>
+    <div class="lrow" data-d="4"><span>${L('LGPD · termos de consentimento','Privacy · member consent forms')}<small>${L('412 de 412 alunos assinados','412 of 412 members signed')}</small></span><span class="dtag ok2">100%</span></div>
+    <div class="lrow tot" data-d="5"><span><b>${L('Índice de conformidade','Compliance score')}</b><small>${L('Pronto para fiscalização ou banco','Ready for an inspection or a bank')}</small></span><b class="mono"><span data-count="96">0</span>%</b></div>
+  </div>`},
+{ id:'bids', g:1, ic:'gov', c:'#2D4BFF', ab:'OH',
+  name:()=>L('Caçador de licitações','Government contract finder'), biz:()=>L('Oficina Horizonte','Horizon Auto & Fleet'), place:()=>L('Oficina · Joinville','Auto repair · Mountain Home, AR'),
+  desc:()=>L('Varre portais de compras públicas, lê os editais e mostra só os que sua empresa consegue ganhar, com a documentação já separada.','Scans public procurement portals, reads the bid documents and shows only the ones you can win, with the paperwork already sorted.'),
+  chip:()=>L('Novo canal de vendas','A new sales channel'),
+  html:()=>`<div class="alerts">
+    <div class="src-row"><span>PNCP</span><span>${L('Compras.gov','SAM.gov')}</span><span>${L('Portais estaduais','State & county portals')}</span><span>${L('286 editais lidos','286 bids read')}</span></div>
+    <div class="alert" data-d="1"><span class="dtag hi">${L('Encaixa','Match')}</span><span><b>${L('Manutenção da frota municipal · 24 meses','City fleet maintenance · 24 months')}</b><small>${L('Prefeitura de Araquari · R$ 640 mil · abertura 09/12','County of Baxter · $410k · opens Dec 9')}</small></span><span class="pct" data-count="94">0</span></div>
+    <div class="alert" data-d="2"><span class="dtag">${L('Encaixa','Match')}</span><span><b>${L('Troca de pneus · ônibus escolares','Tire service · school buses')}</b><small>${L('Estado de SC · R$ 210 mil · abertura 16/12','School district · $96k · opens Dec 16')}</small></span><span class="pct">81</span></div>
+    <div class="alert" data-d="3"><span class="dtag ok2">${L('Documentos','Paperwork')}</span><span><b>${L('Habilitação pronta','Bid package ready')}</b><small>${L('Certidões, balanço e atestados separados em uma pasta','Licenses, insurance and references in one folder')}</small></span><span class="pct">✓</span></div>
+    <div class="data-foot"><span class="ok" data-d="4">${L('2 propostas na sua agenda','2 bids added to your calendar')}</span></div>
+  </div>`},
+{ id:'scan', g:1, ic:'target', c:'#D9560B', ab:'EC',
+  name:()=>L('Varredura da carteira: clique e assine','Portfolio scan: click and sign'), biz:()=>L('Escritório Contábil Aurora','Aurora Accounting'), place:()=>L('Contabilidade · São Paulo','Accounting firm · São Paulo'),
+  desc:()=>L('Passa por todos os clientes do escritório, encontra quem precisa de cada serviço novo e entrega a lista priorizada. O profissional revisa e assina.','Goes through every client of the firm, finds who needs each new service and hands over a prioritized list. The professional reviews and signs.'),
+  chip:()=>L('Novos serviços na carteira que você já tem','New services from clients you already have'),
+  html:()=>`<div class="alerts">
+    <div class="src-row"><span>${L('312 clientes varridos','312 clients scanned')}</span><span>${L('sinais encontrados: 41','signals found: 41')}</span></div>
+    <div class="alert" data-d="1"><span class="dtag hi">${L('Holding com imóveis','Holding w/ properties')}</span><span><b>${L('18 clientes','18 clients')}</b><small>${L('Redutor de ajuste, aluguéis no IBS/CBS, PF x holding','Tax-reform photo, rental tax, individual vs holding')}</small></span><span class="pct">18</span></div>
+    <div class="alert" data-d="2"><span class="dtag">${L('Dividendos pagos','Dividends paid')}</span><span><b>${L('14 clientes','14 clients')}</b><small>${L('Retenção de 10%, lucros antigos, IRPFM','10% withholding, old profits, minimum tax')}</small></span><span class="pct">14</span></div>
+    <div class="alert" data-d="3"><span class="dtag">${L('Fundador idoso','Elderly founder')}</span><span><b>${L('9 clientes','9 clients')}</b><small>${L('Quotas para ITCMD, doar agora ou esperar','Share valuation, give now or wait')}</small></span><span class="pct">9</span></div>
+    <div class="data-foot"><span class="ok" data-d="4">${L('Painel pronto: revisar · assinar','Panel ready: review · sign')}</span></div>
+  </div>`},
+{ id:'invest', g:2, ic:'trend', c:'#A16207', ab:'IH',
+  name:()=>L('Análise de investimentos e cenários','Investment & scenario analysis'), biz:()=>L('Imobiliária Horizonte','Horizon Realty'), place:()=>L('Imobiliária · Florianópolis','Real estate · Austin'),
+  desc:()=>L('Junta preço, aluguel, juros, impostos e custos e calcula retorno e prazo de cada imóvel ou projeto, em vários cenários.','Combines price, rent, interest, taxes and costs, and calculates the return and payback of each property or project across scenarios.'),
+  chip:()=>L('Decisão com números na mão','Decide with the numbers in hand'),
+  html:()=>`<div class="cmp">
+    <h4>${L('Retorno anual líquido · 3 imóveis','Net yearly return · 3 properties')}</h4>
+    ${hbar(1, L('Sala Centro','Downtown office'), 78, '11,4%'.replace(',', L(',','.')), '#A16207')}
+    ${hbar(2, L('Apto Trindade','Riverside condo'), 61, '8,9%'.replace(',', L(',','.')), '#2D4BFF')}
+    ${hbar(3, L('Loja Estreito','Main St. retail'), 44, '6,2%'.replace(',', L(',','.')), '#566178')}
+    <div class="kpis" style="max-width:none">
+      <div class="kpi" data-d="4"><small>${L('Prazo de retorno','Payback')}</small><b><span data-count="8.7" data-dec="1">0</span> ${L('anos','yrs')}</b><em>${L('cenário base','base case')}</em></div>
+      <div class="kpi" data-d="5"><small>${L('Se os juros subirem 2 p.p.','If rates rise 2 pts')}</small><b>-<span data-count="1.8" data-dec="1">0</span>%</b><em class="dn">${L('ainda positivo','still positive')}</em></div>
+    </div>
+    <div class="data-foot"><span class="ok" data-d="6">${L('Relatório de cenários pronto','Scenario report ready')}</span></div>
+  </div>`},
+{ id:'bi', g:2, ic:'pie', c:'#DB2777', ab:'CB',
+  name:()=>L('Painel de dados do negócio','Business data dashboard'), biz:()=>L('Cantina Bella Nonna','Bella Nonna Trattoria'), place:()=>L('Restaurante · São Paulo','Restaurant · Miami'),
+  desc:()=>L('Puxa vendas, estoque, iFood, folha e contas para um painel só, e explica em uma frase o que mudou na semana.','Pulls sales, stock, delivery apps, payroll and bills into one dashboard, and explains in one sentence what changed this week.'),
+  chip:()=>L('Os números da semana no celular','Your week’s numbers on your phone'),
+  html:()=>`<div class="kpis">
+    <div class="kpi" data-d="1"><small>${L('Faturamento semana','Weekly revenue')}</small><b>${L('R$ ','$')}<span data-count="${L('48960','21480')}">0</span></b><em>+12%</em></div>
+    <div class="kpi" data-d="2"><small>${L('Margem do prato','Dish margin')}</small><b><span data-count="64">0</span>%</b><em>+3 p.p.</em></div>
+    <div class="kpi" data-d="3"><small>${L('Desperdício','Food waste')}</small><b><span data-count="4.1" data-dec="1">0</span>%</b><em class="dn">${L('acima da meta','above target')}</em></div>
+    <div class="kpi" data-d="4"><small>${L('Ticket médio','Average ticket')}</small><b>${L('R$ ','$')}<span data-count="${L('87','38')}">0</span></b><em>+6%</em></div>
+    <div class="spark" data-d="5"><svg viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M0 50 L43 46 L86 52 L129 36 L172 40 L215 22 L258 28 L300 10" fill="none" stroke="#DB2777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="toast" data-d="6">${L('“Sexta puxou a semana. Mozarela subiu 9%: revisar fornecedor.”','“Friday carried the week. Mozzarella up 9%: review the supplier.”')}</div>`},
+{ id:'recon', g:2, ic:'sync', c:'#0E7490', ab:'AF',
+  name:()=>L('Conciliação bancária e fiscal','Bank & books reconciliation'), biz:()=>L('Pet Shop Amigo Fiel','Loyal Paws Pet Store'), place:()=>L('Pet shop · Recife','Pet store · Somerset, KY'),
+  desc:()=>L('Cruza extrato, maquininha, notas e boletos. Tudo que bate é baixado sozinho, e só as diferenças chegam até você.','Matches bank statements, card payouts, invoices and bills. Everything that matches is cleared, and only the differences reach you.'),
+  chip:()=>L('Só as exceções chegam a você','Only the exceptions reach you'),
+  html:()=>`<div class="kpis">
+    <div class="kpi" data-d="1"><small>${L('Lançamentos conciliados','Entries matched')}</small><b data-count="1284">0</b><em>${L('98,7% automático','98.7% automatic')}</em></div>
+    <div class="kpi" data-d="2"><small>${L('Taxas da maquininha','Card fees checked')}</small><b>${L('R$ ','$')}<span data-count="${L('3412','2180')}">0</span></b><em>${L('conferidas','verified')}</em></div>
+    <div class="kpi" data-d="3"><small>${L('Diferenças encontradas','Differences found')}</small><b data-count="3">0</b><em class="dn">${L('para revisar','to review')}</em></div>
+    <div class="kpi" data-d="4"><small>${L('Cobrança em dobro','Double charge caught')}</small><b>${L('R$ 289','$214')}</b><em class="dn">${L('fornecedor avisado','supplier notified')}</em></div>
+    <div class="spark" data-d="5"><svg viewBox="0 0 300 70" preserveAspectRatio="none"><path d="M0 60 L30 52 L60 55 L90 40 L120 44 L150 30 L180 34 L210 20 L240 24 L270 12 L300 8" fill="none" stroke="#0E7490" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="toast" data-d="6">${L('Fechamento de novembro pronto para o contador','November close ready for your accountant')}</div>`},
+{ id:'flow', g:2, ic:'flow', c:'#0B1526', ab:'5+1',
+  name:()=>L('5 robôs + 1 pessoa que assina','5 bots + 1 person who signs'), biz:()=>L('Seu processo, sob medida','Your process, custom-built'), place:()=>L('Qualquer área · Brasil e EUA','Any industry · US and Brazil'),
+  desc:()=>L('Todo processo pesado roda na mesma linha: um robô coleta, outro calcula, outro confere, outro procura riscos e outro refaz tudo por outro caminho. No fim, um profissional revisa e assina.','Every heavy process runs on the same line: one bot collects, one calculates, one checks, one hunts for risks and one redoes everything another way. At the end, a professional reviews and signs.'),
+  chip:()=>L('O motor faz o pesado, você assina','The engine does the heavy work, you sign'),
+  html:()=>`<div class="ledger tight">
+    <div class="lrow" data-d="1"><span>${L('1 · Pesquisador','1 · Researcher')}<small>${L('Lê os documentos e pede só o que falta','Reads the documents, asks only for what’s missing')}</small></span><b class="mono">${L('ok','ok')}</b></div>
+    <div class="lrow" data-d="2"><span>${L('2 · Calculista','2 · Calculator')}<small>${L('Aplica leis, índices e prazos de uma tabela versionada','Applies laws, indexes and deadlines from one versioned table')}</small></span><b class="mono"><span data-count="37">0</span> ${L('regras','rules')}</b></div>
+    <div class="lrow" data-d="3"><span>${L('3 · Checador','3 · Checker')}<small>${L('Para em qualquer diferença acima de R$ 1','Stops on any difference above R$1')}</small></span><b class="mono">${L('ok','ok')}</b></div>
+    <div class="lrow warn" data-d="4"><span>${L('4 · Revisor de riscos','4 · Risk reviewer')}<small>${L('Custo sem comprovante encontrado','Found a cost with no receipt')}</small></span><b class="mono">1</b></div>
+    <div class="lrow" data-d="5"><span>${L('5 · Rechecador','5 · Re-checker')}<small>${L('Refaz tudo por outro caminho','Redoes everything another way')}</small></span><b class="mono">${L('bate','matches')}</b></div>
+    <div class="data-foot"><span class="ok" data-d="6">${L('Pronto para assinar · trilha de auditoria salva','Ready to sign · audit trail saved')}</span></div>
+  </div>`}
+];
+let tab = 0, S = S1;
+
+/* ===== apply language ===== */
+function applyLang(){
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = T[lang][el.dataset.i18n]; if (v) el.innerHTML = v; });
+  document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  document.querySelectorAll('[data-brand]').forEach(el => el.textContent = CONFIG.brand);
+  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(T[lang].waText)}`;
+  document.querySelectorAll('[data-wa]').forEach(a => a.href = url);
+  document.getElementById('num').textContent = 'WhatsApp ' + CONFIG.whatsappDisplay;
+  document.getElementById('dom').textContent = CONFIG.domain;
+  buildMenu(); buildMarquee(); feedInit(); select(current, false);
+}
+document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => {
+  lang = b.dataset.lang; try { localStorage.setItem('wa-lang', lang); } catch(e){}
+  applyLang();
+}));
+
+/* ===== service menu + stage ===== */
+let current = 0, token = 0, autoplay = true, lastTouch = 0;
+const menu = document.getElementById('menu'), scene = document.getElementById('scene');
+function buildMenu(){
+  const t = T[lang], k = tab ? '2' : '';
+  const sEy = document.querySelector('[data-i18n="sEy"]'), sH = document.querySelector('[data-i18n="sH"]'), sP = document.querySelector('[data-i18n="sP"]');
+  sEy.innerHTML = t['sEy' + k]; sH.innerHTML = t['sH' + k]; sP.innerHTML = t['sP' + k];
+  document.querySelectorAll('.ltab').forEach(b => b.setAttribute('aria-selected', +b.dataset.tab === tab));
+  menu.innerHTML = (tab ? t.groups2 : t.groups).map((g, gi) => `<div class="group"><h3>${g}</h3><ul>${
+    S.map((s, i) => s.g !== gi ? '' : `<li><button class="svc" type="button" role="tab" id="tab-${s.id}" data-i="${i}" aria-selected="${i===current}">
+      <span class="ic">${svg(s.ic)}</span><span><b>${s.name()}</b><small>${s.biz()}</small></span><span class="dot"></span></button></li>`).join('')
+  }</ul></div>`).join('');
+  menu.querySelectorAll('.svc').forEach(b => {
+    const go = () => { const i = +b.dataset.i; lastTouch = Date.now(); autoplay = false; if (i !== current) select(i, true); };
+    b.addEventListener('mouseenter', go); b.addEventListener('focus', go); b.addEventListener('click', go);
+  });
+}
+function select(i, animate){
+  current = i; const s = S[i];
+  menu.querySelectorAll('.svc').forEach(b => b.setAttribute('aria-selected', +b.dataset.i === i));
+  const av = document.getElementById('av'); av.textContent = s.ab; av.style.background = s.c;
+  document.getElementById('biz').textContent = s.biz();
+  document.getElementById('place').textContent = s.place();
+  document.getElementById('desc').textContent = s.desc();
+  document.getElementById('chip').textContent = s.chip();
+  scene.setAttribute('aria-labelledby', 'tab-' + s.id);
+  token++; scene.classList.remove('anim'); scene.innerHTML = s.html();
+  hookPhoto();
+  if (animate && !reduced) play();
+  if (window.innerWidth <= 1000) { const t = document.getElementById('tab-' + s.id); t && t.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'}); }
+}
+function countUp(el){
+  const to = parseFloat(el.dataset.count), from = parseFloat(el.dataset.from || 0), dec = +(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+  const fmt = v => dec ? v.toFixed(dec).replace('.', lang==='pt' ? ',' : '.') : Math.round(v);
+  (function f(t){ const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(from + (to - from) * e); if (k < 1) requestAnimationFrame(f); })(t0);
+}
+async function play(){
+  const my = ++token;
+  scene.innerHTML = S[current].html(); hookPhoto();
+  scene.classList.add('anim');
+  const els = [...scene.querySelectorAll('[data-d]')], xs = [...scene.querySelectorAll('[data-x]')];
+  const counts = [...scene.querySelectorAll('[data-count]')];
+  counts.forEach(c => { if (!c.closest('[data-d]')) countUp(c); });
+  const max = Math.max(0, ...els.map(e => +e.dataset.d), ...xs.map(e => +e.dataset.x));
+  const typing = scene.querySelector('.typing');
+  await wait(350);
+  for (let st = 1; st <= max; st++){
+    if (my !== token) return;
+    const now = els.filter(e => +e.dataset.d === st);
+    if (typing && now.some(e => e.classList.contains('bot'))){ typing.classList.add('show'); await wait(900); if (my !== token) return; typing.classList.remove('show'); }
+    xs.filter(e => +e.dataset.x === st).forEach(e => e.classList.add('off'));
+    now.forEach(e => { e.classList.add('on'); e.querySelectorAll('[data-count]').forEach(countUp); if (e.dataset.count) countUp(e); });
+    await wait(Math.max(now.length ? 900 : 300, ...now.map(e => +(e.dataset.w || 0))));
+  }
+  if (my !== token) return;
+  await wait(3200);
+  if (my === token) next();
+}
+function next(){
+  const t = token;
+  if ((!autoplay && Date.now() - lastTouch < 15000) || !stageVisible){ setTimeout(() => { if (t === token) next(); }, 3000); return; }
+  autoplay = true;
+  select((current + 1) % S.length, true);
+}
+function setTab(n, scroll){
+  if (n === tab) return;
+  tab = n; S = n ? S2 : S1; current = 0; lastTouch = Date.now(); autoplay = false;
+  buildMenu(); select(0, !reduced);
+  if (scroll && window.innerWidth <= 1000) document.getElementById('menu').scrollLeft = 0;
+}
+document.querySelectorAll('.ltab').forEach(b => b.addEventListener('click', () => setTab(+b.dataset.tab, true)));
+document.getElementById('ltabs').addEventListener('keydown', e => {
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  const n = tab ? 0 : 1; setTab(n, true); document.querySelector(`.ltab[data-tab="${n}"]`).focus();
+});
+
+document.getElementById('replay').addEventListener('click', () => { lastTouch = Date.now(); autoplay = false; if (!reduced) play(); });
+const stage = document.getElementById('stage');
+stage.addEventListener('mousemove', e => { const r = stage.getBoundingClientRect(); stage.style.setProperty('--sx', (e.clientX - r.left) + 'px'); stage.style.setProperty('--sy', (e.clientY - r.top) + 'px'); });
+stage.addEventListener('mouseenter', () => { lastTouch = Date.now(); autoplay = false; if (!scene.classList.contains('anim') && !reduced) play(); });
+let stageVisible = false, started = false;
+new IntersectionObserver(([en]) => {
+  stageVisible = en.isIntersecting;
+  if (stageVisible && !started && !reduced){ started = true; play(); }
+}, {threshold:.35}).observe(stage);
+
+function hookPhoto(){
+  const p = scene.querySelector('#photo'); if (!p) return;
+  const set = x => { const r = p.getBoundingClientRect(); p.style.setProperty('--cut', Math.max(4, Math.min(96, (x - r.left) / r.width * 100)) + '%'); };
+  p.addEventListener('pointermove', e => { p.classList.add('drag'); set(e.clientX); lastTouch = Date.now(); autoplay = false; });
+  p.addEventListener('pointerleave', () => p.classList.remove('drag'));
+}
+
+/* ===== hero: bot that watches you ===== */
+const bot = document.getElementById('bot'), eyes = document.getElementById('eyes'), hero = document.getElementById('hero');
+let tx = 0, ty = 0, cx = 0, cy = 0;
+window.addEventListener('pointermove', e => {
+  const r = bot.getBoundingClientRect(), bx = r.left + r.width / 2, by = r.top + r.height * .42;
+  const dx = e.clientX - bx, dy = e.clientY - by, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+  tx = dx / d * 9 * k; ty = dy / d * 6 * k;
+  const hr = hero.getBoundingClientRect();
+  hero.style.setProperty('--mx', (e.clientX - hr.left) + 'px'); hero.style.setProperty('--my', (e.clientY - hr.top) + 'px');
+}, {passive:true});
+(function loop(){ cx += (tx - cx) * .15; cy += (ty - cy) * .15; eyes.setAttribute('transform', `translate(${cx.toFixed(2)} ${cy.toFixed(2)})`); requestAnimationFrame(loop); })();
+const happy = on => { bot.classList.toggle('happy', on); document.getElementById('mouth').setAttribute('d', on ? 'M100 126q20 18 40 0' : 'M106 130q14 8 28 0'); };
+bot.addEventListener('mouseenter', () => happy(true)); bot.addEventListener('mouseleave', () => happy(false));
+bot.addEventListener('focus', () => happy(true)); bot.addEventListener('blur', () => happy(false));
+bot.addEventListener('click', () => { happy(true); document.getElementById('robos').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'}); });
+document.querySelectorAll('.btn-wa').forEach(b => { b.addEventListener('mouseenter', () => happy(true)); b.addEventListener('mouseleave', () => happy(false)); });
+
+/* ===== hero live feed ===== */
+const FEED = () => [
+ ['chat', L('Barbearia do Zé','Joe’s Barbershop'), L('Agendou corte para amanhã, 15h','Booked a haircut for tomorrow, 3pm')],
+ ['scale', L('Holding Família Prado','Prado Family Holding'), L('Dossiê do redutor 31/12/2026 pronto para assinar','Tax-reform property dossier ready to sign')],
+ ['star', L('Cantina Bella Nonna','Bella Nonna Trattoria'), L('Respondeu uma avaliação 5 estrelas','Replied to a 5-star review')],
+ ['bell', L('Lima Advocacia','Lima Law Office'), L('Nova regra no Diário Oficial: 14 clientes afetados','New rule published: 14 clients affected')],
+ ['phone', L('Clínica Sorriso Leve','Bright Smile Dental'), L('Atendeu ligação às 22:14 e marcou consulta','Answered a 10:14 PM call and booked a visit')],
+ ['calc', L('Grupo Rocha','Rocha Group'), L('Retenção de 10% conferida: DARF pronto','10% dividend withholding checked: slip ready')],
+ ['target', L('Contabilidade Prisma','Prism Accounting'), L('Encontrou 38 empresas novas para prospectar','Found 38 new businesses to contact')],
+ ['shield', L('Studio Fit Academia','Studio Fit Gym'), L('Alvará vence em 12 dias: vistoria pedida','Permit expires in 12 days: inspection requested')],
+ ['chart', L('Pet Shop Amigo Fiel','Loyal Paws Pet Store'), L('Concorrente baixou o preço: alerta enviado','Competitor cut a price: alert sent')],
+ ['gov', L('Oficina Horizonte','Horizon Auto & Fleet'), L('Licitação de frota encontrada: 94% de encaixe','Fleet contract found: 94% match')],
+ ['web', L('Padaria Sol Nascente','Sunrise Bakery'), L('Recebeu encomenda pelo site','Got a pre-order through the website')],
+ ['pie', L('Família Mattos','Mattos Family'), L('Cenários de ITCMD prontos: doar agora ou esperar','Gift-tax scenarios ready: give now or wait')],
+ ['send', L('Imobiliária Horizonte','Horizon Realty'), L('Cliente respondeu o follow-up: visita sábado','Lead replied to follow-up: viewing Saturday')],
+ ['sync', L('Pet Shop Amigo Fiel','Loyal Paws Pet Store'), L('1.284 lançamentos conciliados, 3 para revisar','1,284 entries matched, 3 to review')],
+ ['doc', L('Lima Advocacia','Lima Law Office'), L('Contrato assinado por Marcos A.','Contract signed by Marcos A.')],
+ ['target', L('Escritório Contábil Aurora','Aurora Accounting'), L('Varredura: 41 clientes precisam dos novos serviços','Scan: 41 clients need the new services')],
+ ['trend', L('Imobiliária Horizonte','Horizon Realty'), L('Retorno de 3 imóveis calculado em 4 cenários','Return on 3 properties calculated in 4 scenarios')],
+ ['board', L('Sr. Vieira · 7 imóveis','Mr. Vieira · 7 rentals'), L('Aluguéis enquadrados no IBS/CBS antes de 2027','Rentals classified under the new tax before 2027')]
+];
+const feedEl = document.getElementById('feed'); let fi = 0, feedTimer;
+const li = (f, t) => `<li><span class="ic">${svg(f[0])}</span><span><b>${f[1]}</b><span>${f[2]}</span></span><time>${t}</time></li>`;
+function feedInit(){
+  clearInterval(feedTimer);
+  const F = FEED(); fi = 4;
+  feedEl.innerHTML = F.slice(0, 4).map((f, i) => li(f, i ? `${i * 2} ${T[lang].min}` : T[lang].now)).join('');
+  if (reduced) return;
+  feedTimer = setInterval(() => {
+    const F = FEED(), f = F[fi++ % F.length];
+    feedEl.querySelectorAll('time').forEach((t, i) => t.textContent = `${(i + 1) * 2} ${T[lang].min}`);
+    feedEl.insertAdjacentHTML('afterbegin', li(f, T[lang].now));
+    while (feedEl.children.length > 4) feedEl.lastElementChild.remove();
+  }, 2800);
+}
+
+/* ===== marquee ===== */
+function buildMarquee(){
+  const w = L('Barbearias,Clínicas,Restaurantes,Pet shops,Academias,Imobiliárias,Escritórios,Padarias,Salões de beleza,Lojas,Oficinas,Cafeterias','Barbershops,Clinics,Restaurants,Pet stores,Gyms,Real estate,Law offices,Bakeries,Salons,Retail shops,Auto repair,Coffee shops').split(',');
+  const row = w.map(x => `<span>${x}</span>`).join('');
+  document.getElementById('marq').innerHTML = row + row;
+}
+
+/* header border on scroll */
+const head = document.querySelector('header.top');
+addEventListener('scroll', () => head.classList.toggle('scrolled', scrollY > 10), {passive:true});
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+applyLang();
+</script>
+
+</body>
+</html>
