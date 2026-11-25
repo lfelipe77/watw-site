@@ -14,17 +14,25 @@ document.querySelectorAll('[data-mail]').forEach(function(a){
   a.href='mailto:'+CFG.email+'?subject='+encodeURIComponent(s);
 });
 document.querySelectorAll('form.lead-form').forEach(function(f){
+  var err=f.querySelector('.err'),btn=f.querySelector('button[type=submit]');
+  function fail(m){err.textContent=m;err.hidden=false}
   f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var d=new FormData(f),n=d.get('nome')||'',o=d.get('escritorio')||'',t=d.get('tipo')||'',c=d.get('carteira')||'',x=d.get('obs')||'';
-    var msg='Olá! Sou '+n+(o?' do '+o:'')+(t?' ('+t+')':'')+'. Vi a página "'+page+'" da WATW'+(c?' e minha carteira tem cerca de '+c:'')+'. Quero ver o motor rodando com um caso real.'+(x?' Obs.: '+x:'');
-    window.open(wa(msg),'_blank','noopener');
-  });
-  var em=f.querySelector('[data-mail-form]');
-  if(em)em.addEventListener('click',function(e){
-    e.preventDefault();var d=new FormData(f);
-    var body='Nome: '+(d.get('nome')||'')+'\nEscritório: '+(d.get('escritorio')||'')+'\nTipo: '+(d.get('tipo')||'')+'\nCarteira: '+(d.get('carteira')||'')+'\nObs.: '+(d.get('obs')||'')+'\n\n(Página: '+page+')';
-    location.href='mailto:'+CFG.email+'?subject='+encodeURIComponent('Quero ver o motor WATW: '+page)+'&body='+encodeURIComponent(body);
+    e.preventDefault();err.hidden=true;
+    var d=new FormData(f),v=function(k){return (d.get(k)||'').toString().trim()};
+    if(!v('nome')||!v('escritorio'))return fail('Preencha seu nome e o escritório.');
+    if(!v('whatsapp')&&!v('email'))return fail('Deixe um WhatsApp ou um e-mail para respondermos.');
+    if(v('email')&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))return fail('Confira o e-mail.');
+    if(!f.querySelector('[name=consent]').checked)return fail('Marque a autorização para podermos responder.');
+    var msg='Olá! Sou '+v('nome')+' do '+v('escritorio')+' ('+v('tipo')+'). Vi a página "'+page+'" da WATW'+(v('carteira')?' e minha carteira tem cerca de '+v('carteira')+' clientes':'')+'. Quero ver o motor rodando com um caso real.'+(v('obs')?' Obs.: '+v('obs'):'');
+    var payload={nome:v('nome'),escritorio:v('escritorio'),whatsapp:v('whatsapp'),email:v('email'),tipo:v('tipo'),carteira:v('carteira'),obs:v('obs'),site:v('site'),pagina:page,url:location.href,ref:document.referrer};
+    btn.disabled=true;btn.lastChild.textContent=' Enviando...';
+    function done(ok){
+      f.classList.add('sent');
+      f.innerHTML='<div class="ok">'+(ok?'✅':'💬')+'</div><h3>'+(ok?'Recebemos seu pedido.':'Falta só um toque.')+'</h3><p>'+(ok?'Vamos responder pelo contato que você deixou. Se preferir adiantar a conversa, chame no WhatsApp.':'Não conseguimos registrar agora. Envie a mensagem pronta pelo WhatsApp ou por e-mail.')+'</p><div class="cta-row" style="justify-content:center"><a class="btn btn-wa" target="_blank" rel="noopener" href="'+wa(msg)+'">'+ICON+' Falar no WhatsApp</a><a class="btn btn-ghost" href="mailto:'+CFG.email+'?subject='+encodeURIComponent('Quero ver o motor WATW: '+page)+'&body='+encodeURIComponent(msg)+'">Enviar por e-mail</a></div>';
+      if(window.gtag)try{gtag('event','generate_lead',{page:page})}catch(x){}
+    }
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){done(r.ok)}).catch(function(){done(false)});
   });
 });
 document.querySelectorAll('[data-video-slot]').forEach(function(s){
