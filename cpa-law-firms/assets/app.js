@@ -30,12 +30,12 @@ document.querySelectorAll('form.lead-form').forEach(function(f){
   if(!v('nome')||!v('escritorio'))return fail('Please enter your name and firm.');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))return fail('Please enter a valid work email.');
   if(!f.querySelector('[name=consent]').checked)return fail('Please tick the box so we can reply to you.');
-  var payload={nome:v('nome'),escritorio:v('escritorio'),whatsapp:v('whatsapp'),email:v('email'),tipo:v('tipo'),carteira:v('carteira'),obs:v('obs'),site:v('site'),pagina:'US: '+page,url:location.href,ref:document.referrer};
+  var payload={nome:v('nome'),escritorio:v('escritorio'),whatsapp:v('whatsapp'),email:v('email'),tipo:v('tipo'),carteira:v('carteira'),obs:'START REQUEST ($600, money-back guarantee). '+v('obs'),site:v('site'),pagina:'US: '+page,url:location.href,ref:document.referrer};
   btn.disabled=true;btn.textContent='Sending...';
   function done(ok){
-   var body='Hi, I am '+v('nome')+' from '+v('escritorio')+'. I saw "'+page+'" on the WATW site and would like a walkthrough.';
+   var body='Hi, I am '+v('nome')+' from '+v('escritorio')+'. I saw "'+page+'" on the WATW site and would like to start with the $600 money-back guarantee.';
    f.classList.add('sent');
-   f.innerHTML='<div class="ok" aria-hidden="true">'+(ok?'&#10003;':'&#9993;')+'</div><h3>'+(ok?'Request received.':'One more step.')+'</h3><p>'+(ok?'We will reply to the email you gave us.':'We could not record it just now. Please email us and we will reply.')+'</p><div class="cta-row" style="justify-content:center"><a class="btn btn-go" href="mailto:'+EMAIL+'?subject='+encodeURIComponent('Walkthrough request: '+page)+'&body='+encodeURIComponent(body)+'">Email WATW</a></div>';
+   f.innerHTML='<div class="ok" aria-hidden="true">'+(ok?'&#10003;':'&#9993;')+'</div><h3>'+(ok?'Start request received.':'One more step.')+'</h3><p>'+(ok?'We will email you the agreement and a secure payment link. No payment has been taken.':'We could not record it just now. Please email us and we will reply.')+'</p><div class="cta-row" style="justify-content:center"><a class="btn btn-go" href="mailto:'+EMAIL+'?subject='+encodeURIComponent('Walkthrough request: '+page)+'&body='+encodeURIComponent(body)+'">Email WATW</a></div>';
    if(window.gtag)try{gtag('event','generate_lead',{page:page})}catch(x){}
   }
   fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(function(r){done(r.ok)}).catch(function(){done(false)});
