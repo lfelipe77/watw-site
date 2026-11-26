@@ -16,7 +16,8 @@ export async function onRequestPost({ request, env }) {
   if (origin && !/weautomatetheworld\.com$|\.pages\.dev$|localhost/.test(new URL(origin).hostname)) return json({ ok: false }, 403);
   if (!env.LEAD_WEBHOOK) return json({ ok: false, error: 'not_configured' }, 503);
   lead.token = env.LEAD_TOKEN || '';
-  lead.pais = request.cf?.country || '';
+  // US pages label the lead as US regardless of where the visitor connects from
+  lead.pais = lead.pagina.startsWith('US:') ? 'US' : (request.cf?.country || '');
   lead.quando = new Date().toISOString();
   try {
     const r = await fetch(env.LEAD_WEBHOOK, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(lead), redirect: 'follow' });
