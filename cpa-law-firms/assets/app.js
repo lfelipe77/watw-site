@@ -18,6 +18,8 @@ var st=document.querySelector('.sticky'),hero=document.querySelector('.hero'),cl
 if(st&&io){var vis={h:true,c:false};st.classList.add('hide');var o2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.target===hero)vis.h=e.isIntersecting;else vis.c=e.isIntersecting});st.classList.toggle('hide',vis.h||vis.c)});if(hero)o2.observe(hero);if(cl)o2.observe(cl)}
 // status counter in panel
 document.querySelectorAll('.panel .status b').forEach(function(b){var n=+b.getAttribute('data-n');if(rm){b.textContent=n;return}var i=0;var t=setInterval(function(){i++;b.textContent=i;if(i>=n)clearInterval(t)},450)});
+// YouTube facade: load the real player only on click (no layout shift, no third-party load before)
+document.querySelectorAll('.vframe[data-yt]').forEach(function(f){var b=f.querySelector('.vplay');if(!b)return;b.addEventListener('click',function(){var i=f.getAttribute('data-yt');f.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+i+'?autoplay=1&rel=0" title="WATW video" allow="accelerometer;autoplay;encrypted-media;picture-in-picture;fullscreen" allowfullscreen></iframe>'})});
 // lead form -> /api/lead (same webhook as /escritorios/)
 document.querySelectorAll('form.lead-form').forEach(function(f){
  var err=f.querySelector('.err'),btn=f.querySelector('button[type=submit]');
