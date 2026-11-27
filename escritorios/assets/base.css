@@ -110,3 +110,6 @@ footer.foot .links{display:flex;flex-wrap:wrap;gap:6px 18px}
 .lead .err{color:#c0392b;font-weight:600;font-size:.9rem;margin-top:12px}
 .lead.sent{text-align:center}.lead.sent .ok{font-size:2.6rem}.lead.sent h3{margin:8px 0}.lead.sent p{color:var(--muted);margin-bottom:18px}
 .lead button[disabled]{opacity:.6;cursor:wait}
+
+.cal-embed{margin-top:22px;text-align:center}.cal-embed h3{margin:0 0 6px}.cal-embed p{margin:0 0 12px}.cal-embed iframe{display:block;margin:0 0 14px}.cal-embed .btn{justify-content:center}
+.lead-form.sent{display:flex;flex-direction:column}.lead-form.sent .cta-row{order:5;margin-top:18px}
