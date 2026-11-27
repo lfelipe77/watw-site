@@ -4,3 +4,7 @@
 /methodology/*     /         301
 /project-estimator /         301
 /crm-calculator    /         301
+
+# Short booking links (302 so the target can be swapped)
+/book     https://calendar.google.com/calendar/appointments/schedules/AcZssZ06G3KqwIqTNTi139_QxZj6cE35l8unEhnXguoGL85nBLJlh_3exrjpjTQyLtTg2ak0YJHaFz9t  302
+/agendar  https://calendar.google.com/calendar/appointments/schedules/AcZssZ06G3KqwIqTNTi139_QxZj6cE35l8unEhnXguoGL85nBLJlh_3exrjpjTQyLtTg2ak0YJHaFz9t  302
